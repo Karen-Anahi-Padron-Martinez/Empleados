@@ -9,7 +9,11 @@ export class LayoutPageComponent {
 
   public sidebarItems = [
     //{label:'Login',icon:'label',url:'./login'},
-    {label:'Registro',icon:'add',url:'./new-account'},
+    {label:'Registro Empleados',icon:'add',url:'./new-account'},
+    {label:'Empleados Registrados',icon:'how_to_reg',url:'./ver-empleado'},
+    {label: 'Registrar Curso-Participación', icon:'app_registration',url:'./registrarcp'},
+    {label:'Consultar',icon:'search',url:'./consultar'},
+    {label:'Empleados Baja',icon:'restart_alt',url:'./baja'}
     
   ]
 }

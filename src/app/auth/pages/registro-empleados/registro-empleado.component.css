@@ -1,0 +1,49 @@
+/* Contenedor principal */
+.form-container {
+    width: 80%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #f6f6f6; /* Verde suave */
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Título del formulario */
+  .form-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #2e7d32; /* Verde oscuro */
+    margin-bottom: 20px;
+  }
+  
+  /* Diseño con grid para distribuir en pantalla */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  
+  /* Hacer que todos los campos ocupen el 100% del contenedor */
+  mat-form-field {
+    width: 100%;
+  }
+  
+  /* Botón con estilo verde */
+  .submit-btn {
+    grid-column: span 2;
+    width: 100%;
+    padding: 12px;
+    background-color: #2e7d32 !important; /* Verde oscuro */
+    color: white !important;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+  }
+  
+  /* Cambia el color al pasar el mouse */
+  .submit-btn:hover {
+    background-color: #1b5e20 !important;
+  }
+  

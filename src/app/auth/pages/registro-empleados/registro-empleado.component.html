@@ -1,0 +1,109 @@
+<mat-card class="form-container">
+  <h2 class="form-title">Registro de Empleado</h2>
+  <form [formGroup]="empleadoForm" (ngSubmit)="guardarEmpleado()" class="form-grid">
+
+    <!-- Nombre y Apellidos -->
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" (blur)="generarClaveEmpleado()">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Apellido Paterno</mat-label>
+      <input matInput formControlName="apellidoPaterno" (blur)="generarClaveEmpleado()">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Apellido Materno</mat-label>
+      <input matInput formControlName="apellidoMaterno" (blur)="generarClaveEmpleado()">
+    </mat-form-field>
+
+    <!-- Clave de Empleado -->
+    <mat-form-field appearance="outline">
+      <mat-label>Clave Empleado</mat-label>
+      <input matInput formControlName="claveEmpleado" readonly>
+    </mat-form-field>
+
+    <!-- RFC -->
+    <mat-form-field appearance="outline">
+      <mat-label>RFC</mat-label>
+      <input matInput formControlName="rfc">
+    </mat-form-field>
+
+    <!-- Fecha de Nacimiento -->
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de Nacimiento</mat-label>
+      <input matInput formControlName="fechaNacimiento" type="date">
+    </mat-form-field>
+
+    <!-- Sexo -->
+    <mat-form-field appearance="outline">
+      <mat-label>Sexo</mat-label>
+      <mat-select formControlName="sexo">
+        <mat-option value="M">Masculino</mat-option>
+        <mat-option value="F">Femenino</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Ciudad -->
+    <mat-form-field appearance="outline">
+      <mat-label>Ciudad</mat-label>
+      <mat-select formControlName="domicilio.ciudad">
+        <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Departamento -->
+    <mat-form-field appearance="outline">
+      <mat-label>Departamento</mat-label>
+      <mat-select formControlName="departamento">
+        <mat-option *ngFor="let departamento of departamentos" [value]="departamento">
+          {{ departamento }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Puesto -->
+    <mat-form-field appearance="outline">
+      <mat-label>Puesto</mat-label>
+      <mat-select formControlName="puesto">
+        <mat-option *ngFor="let puesto of puestos" [value]="puesto">
+          {{ puesto }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Correo Electrónico -->
+    <mat-form-field appearance="outline">
+      <mat-label>Correo Electrónico</mat-label>
+      <input matInput formControlName="correos">
+    </mat-form-field>
+
+    <!-- Contraseña -->
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="contrasena">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Confirmar Contraseña</mat-label>
+      <input matInput type="password" formControlName="confirmarContrasena">
+    </mat-form-field>
+
+    <!-- Referencias Familiares -->
+    <mat-form-field appearance="outline">
+      <mat-label>Parentesco</mat-label>
+      <mat-select formControlName="parentesco">
+        <mat-option *ngFor="let parentesco of parentescos" [value]="parentesco">
+          {{ parentesco }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Botón de registro -->
+    <button mat-raised-button color="accent" type="submit" [disabled]="!empleadoForm.valid" class="submit-btn">
+      Registrar Empleado
+    </button>
+
+  </form>
+</mat-card>
