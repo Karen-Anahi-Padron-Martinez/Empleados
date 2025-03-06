@@ -1,1 +1,68 @@
-<p>registracp-page works!</p>
+<div class="container">
+    <h2 class="form-title">Registrar Curso o Actividad</h2>
+  
+    <div class="selection">
+      <button mat-button (click)="selectOption('course')">Registrar Curso</button>
+      <button mat-button (click)="selectOption('activity')">Registrar Actividad</button>
+    </div>
+  
+    <div *ngIf="selectedOption === 'course'" class="course-form">
+      <h3 class="form-titl">Formulario de Curso</h3>
+      <form>
+        <label for="courseName">Nombre del Curso:</label>
+        <input id="courseName" type="text" placeholder="Nombre del curso">
+  
+        <label for="startDate">Fecha de Inicio:</label>
+        <input id="startDate" type="date">
+  
+        <label for="endDate">Fecha de Término:</label>
+        <input id="endDate" type="date">
+  
+        <label for="documentType">Tipo de Documento Entregado:</label>
+        <select id="documentType">
+          <option value="constancia">Constancia</option>
+          <option value="participacion">Participación</option>
+          <option value="diploma">Diploma</option>
+        </select>
+      </form>
+  
+      <div class="user-registration">
+        <h4 class="form-titl">Usuarios Registrados en el Curso</h4>
+        <input #userInput type="text" placeholder="Agregar usuario" />
+        <button mat-button (click)="addUser(userInput.value); userInput.value='';">Agregar Usuario</button>
+  
+        <ul>
+          <li *ngFor="let user of usersInCourse">{{ user }}</li>
+        </ul>
+      </div>
+    </div>
+  
+    <div *ngIf="selectedOption === 'activity'" class="activity-form">
+      <h3 class="form-titl">Formulario de Actividad</h3>
+      <form>
+        <label for="activityName">Nombre de la Actividad:</label>
+        <input id="activityName" type="text" placeholder="Nombre de la actividad">
+  
+        <label for="participationStatus">Estatus de Participación:</label>
+        <select id="participationStatus">
+          <option value="1">Participó</option>
+          <option value="0">No Participó</option>
+        </select>
+      </form>
+  
+      <div class="user-registration">
+        <h4 class="form-titl">Usuarios Registrados en la Actividad</h4>
+        <input #userInputActivity type="text" placeholder="Agregar usuario" />
+        <button mat-button (click)="addUser(userInputActivity.value); userInputActivity.value='';">Agregar Usuario</button>
+  
+        <ul>
+          <li *ngFor="let user of usersInActivity">{{ user }}</li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="reset">
+      <button mat-button (click)="resetForm()">Resetear</button>
+    </div>
+  </div>
+  

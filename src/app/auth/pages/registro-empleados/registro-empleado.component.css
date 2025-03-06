@@ -14,7 +14,7 @@
     text-align: center;
     font-size: 24px;
     font-weight: bold;
-    color: #2e7d32; /* Verde oscuro */
+    color: #114c5f; /* Verde oscuro */
     margin-bottom: 20px;
   }
   
@@ -35,7 +35,7 @@
     grid-column: span 2;
     width: 100%;
     padding: 12px;
-    background-color: #2e7d32 !important; /* Verde oscuro */
+    background-color: #114c5f !important; /* Verde oscuro */
     color: white !important;
     font-size: 16px;
     font-weight: bold;
@@ -44,6 +44,6 @@
   
   /* Cambia el color al pasar el mouse */
   .submit-btn:hover {
-    background-color: #1b5e20 !important;
+    background-color: #114c5f !important;
   }
   

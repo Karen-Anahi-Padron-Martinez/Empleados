@@ -1,4 +1,4 @@
-<mat-sidenav-container fullscreen>
+<!-- <mat-sidenav-container fullscreen>
   <mat-sidenav #sidenav mode="push" [ngStyle]="{width: '250px'}">
     <mat-toolbar color="warn">
       <span>Menu</span>
@@ -29,6 +29,37 @@
   <div class="container">
     <router-outlet></router-outlet>
   </div>
+</mat-sidenav-container> -->
+
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="push" [ngStyle]="{width: '250px'}" style="background-color: #0799b6;">
+    <mat-toolbar color="primary" style="background-color: #0799b6; color: white;">
+      <span>Menu</span>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="sidenav.toggle()" style="color: white;">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-nav-list>
+      <mat-list-item *ngFor="let item of sidebarItems" [routerLink]="item.url" (click)="sidenav.toggle()">
+        <mat-icon matListItemIcon style="color: white;">{{ item.icon }}</mat-icon>
+        <span class="white-text">{{ item.label }}</span>  <!-- Aquí aplicamos la clase white-text -->
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-toolbar color="primary" style="background-color: #114c5f; color: white;">
+    <button mat-icon-button (click)="sidenav.toggle()" style="color: white;">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <button mat-button style="color: white;">
+      Logout
+    </button>
+  </mat-toolbar>
+
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
 </mat-sidenav-container>
-
-

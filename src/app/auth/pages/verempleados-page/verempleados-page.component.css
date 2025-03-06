@@ -1,0 +1,62 @@
+.container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  .form-titl {
+    
+    font-size: 24px;
+    font-weight: bold;
+    color: #114c5f; /* Verde oscuro */
+    margin-bottom: 20px;
+  }
+  .search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .user-list {
+    margin-bottom: 20px;
+  }
+  
+  .user-list mat-list {
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-list mat-list-item {
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  .user-list mat-list-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .user-detail {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-detail p {
+    font-size: 16px;
+  }
+  
+  .actions {
+    margin-top: 20px;
+  }
+  
+  .actions button {
+    margin-right: 10px;
+  }
+  
