@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { EmpleadoService } from '../../../services/empleado.service';
 import { Router } from '@angular/router';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-registro-empleado',
   templateUrl: './registro-empleado.component.html',
   styleUrls: ['./registro-empleado.component.css']
 })
-export class RegistroEmpleadoComponent {
+export class RegistroEmpleadoComponent implements OnInit {
   empleado = {
     clave_empleado: '',
     nombre: '',
@@ -40,8 +41,25 @@ export class RegistroEmpleadoComponent {
       correo: ''
     }]
   };
+  // Arrays para almacenar los datos del servicio
+  departamentos: any[] = [];
+  puestos: any[] = [];
+  ciudades: any[] = [];
+  parentescos: any[] = [];
 
-  constructor(private empleadoService: EmpleadoService, private router: Router) {}
+  constructor(
+    private empleadoService: EmpleadoService, 
+    private dataService: DataService, 
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    // Obtener datos desde el servicio
+    this.dataService.getDepartamentos().subscribe(data => this.departamentos = data);
+    this.dataService.getPuestos().subscribe(data => this.puestos = data);
+    this.dataService.getCiudades().subscribe(data => this.ciudades = data);
+    this.dataService.getParentescos().subscribe(data => this.parentescos = data);
+  }
 
   registrarEmpleado() {
     this.empleadoService.registrarEmpleado(this.empleado).subscribe(

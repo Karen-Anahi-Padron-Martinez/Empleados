@@ -92,20 +92,26 @@
       <input type="text" id="codigo_postal" class="form-control" [(ngModel)]="empleado.domicilio.codigo_postal" name="codigo_postal" />
     </div>
     <div class="form-group">
-      <label for="ciudad">Ciudad</label>
-      <input type="text" id="ciudad" class="form-control" [(ngModel)]="empleado.domicilio.ciudad" name="ciudad" />
+      <label>Ciudad:</label>
+      <select [(ngModel)]="empleado.domicilio.ciudad" name="ciudad">
+        <option *ngFor="let c of ciudades" [value]="c.ciudad">{{ c.ciudad }}</option>
+      </select> 
     </div>
     
     <!-- Departamento -->
     <div class="form-group">
-      <label for="departamento">Departamento</label>
-      <input type="text" id="departamento" class="form-control" [(ngModel)]="empleado.departamento" name="departamento" required />
+      <label>Departamento:</label>
+      <select [(ngModel)]="empleado.departamento" name="departamento">
+        <option *ngFor="let d of departamentos" [value]="d.nombre">{{ d.nombre }}</option>
+      </select>
     </div>
     
     <!-- Puesto -->
     <div class="form-group">
-      <label for="puesto">Puesto</label>
-      <input type="text" id="puesto" class="form-control" [(ngModel)]="empleado.puesto" name="puesto" required />
+      <label>Puesto:</label>
+      <select [(ngModel)]="empleado.puesto" name="puesto">
+        <option *ngFor="let p of puestos" [value]="p.nombre_puesto">{{ p.nombre_puesto }}</option>
+      </select>  
     </div>
     
     <!-- Teléfonos -->
@@ -126,8 +132,10 @@
       <input type="text" id="referencias_familiares" class="form-control" [(ngModel)]="empleado.referencias_familiares[0].nombre" name="referencias_familiares" />
     </div>
     <div class="form-group">
-      <label for="referencias_familiares_parentesco">Parentesco</label>
-      <input type="text" id="referencias_familiares_parentesco" class="form-control" [(ngModel)]="empleado.referencias_familiares[0].parentesco" name="referencias_familiares_parentesco" />
+      <label>Parentesco:</label>
+      <select [(ngModel)]="empleado.referencias_familiares[0].parentesco" name="parentesco">
+        <option *ngFor="let p of parentescos" [value]="p.parentesco">{{ p.parentesco }}</option>
+      </select> 
     </div>
     <div class="form-group">
       <label for="referencias_familiares_telefonos">Teléfonos</label>
