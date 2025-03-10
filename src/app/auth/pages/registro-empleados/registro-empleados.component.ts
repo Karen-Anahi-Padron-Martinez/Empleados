@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { EmpleadoService } from '../../../services/empleado.service';
 import { Router } from '@angular/router';
 import { DataService } from '../../../services/data.service';
@@ -41,11 +40,14 @@ export class RegistroEmpleadoComponent implements OnInit {
       correo: ''
     }]
   };
+
   // Arrays para almacenar los datos del servicio
   departamentos: any[] = [];
   puestos: any[] = [];
   ciudades: any[] = [];
   parentescos: any[] = [];
+  
+  consecutivo = 1; // Esto debe venir de la base de datos en un caso real
 
   constructor(
     private empleadoService: EmpleadoService, 
@@ -61,11 +63,37 @@ export class RegistroEmpleadoComponent implements OnInit {
     this.dataService.getParentescos().subscribe(data => this.parentescos = data);
   }
 
+  /**
+   * Genera automáticamente la clave de empleado en base a:
+   * - Primeras letras de los nombres
+   * - Primera letra del apellido paterno
+   * - Primera letra del apellido materno
+   * - Un consecutivo (ejemplo: 001, 002, ...)
+   */
+  generarClaveEmpleado(): void {
+    if (this.empleado.nombre && this.empleado.apellido_paterno && this.empleado.apellido_materno) {
+      const nombres = this.empleado.nombre.split(' '); 
+      const inicialesNombres = nombres.map(n => n.charAt(0)).join('').toUpperCase(); 
+      const inicialPaterno = this.empleado.apellido_paterno.charAt(0).toUpperCase(); 
+      const inicialMaterno = this.empleado.apellido_materno.charAt(0).toUpperCase();
+
+      // Formato: InicialesNombre + InicialPaterno + InicialMaterno + "-Consecutivo"
+      this.empleado.clave_empleado = `${inicialesNombres}${inicialPaterno}${inicialMaterno}-${this.consecutivo.toString().padStart(3, '0')}`;
+    } else {
+      this.empleado.clave_empleado = '';
+    }
+  }
+
+  /**
+   * Registra el empleado en la base de datos
+   */
   registrarEmpleado() {
+    this.generarClaveEmpleado(); // Asegurar que la clave se genere antes del registro
+
     this.empleadoService.registrarEmpleado(this.empleado).subscribe(
       (response) => {
         console.log('Empleado registrado:', response);
-        this.router.navigate(['/empleados']); // Redirigir a la lista de empleados o página principal
+        this.router.navigate(['/empleados']); 
       },
       (error) => {
         console.error('Error al registrar empleado:', error);
