@@ -1,156 +1,176 @@
 <!-- src/app/empleado/empleado-register/empleado-register.component.html -->
 <div class="form-container">
   <h2 class="form-title">Registrar Nuevo Empleado</h2>
-  <form (ngSubmit)="registrarEmpleado()" class="form-grid">
-    
-    <!-- Clave de Empleado (Generada Automáticamente) -->
-<mat-form-field appearance="outline">
-  <mat-label>Clave de Empleado</mat-label>
-  <input matInput type="text" [(ngModel)]="empleado.clave_empleado" name="clave_empleado" readonly />
-</mat-form-field>
+  <form [formGroup]="empleadoForm" (ngSubmit)="registrarEmpleado()" class="form-grid">
 
-<!-- Nombre -->
-<mat-form-field appearance="outline">
-  <mat-label>Nombre</mat-label>
-  <input matInput type="text" [(ngModel)]="empleado.nombre" name="nombre" (input)="generarClaveEmpleado()" required />
-</mat-form-field>
+    <h4 class="form-title">Datos Generales</h4>
+    <div class="section">
+      <mat-form-field appearance="outline">
+        <mat-label>Clave de Empleado</mat-label>
+        <input matInput type="text" formControlName="clave_empleado" readonly />
+      </mat-form-field>
 
-<!-- Apellido Paterno -->
-<mat-form-field appearance="outline">
-  <mat-label>Apellido Paterno</mat-label>
-  <input matInput type="text" [(ngModel)]="empleado.apellido_paterno" name="apellido_paterno" (input)="generarClaveEmpleado()" required />
-</mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" formControlName="nombre" (input)="generarClaveEmpleado()" required />
+      </mat-form-field>
 
-<!-- Apellido Materno -->
-<mat-form-field appearance="outline">
-  <mat-label>Apellido Materno</mat-label>
-  <input matInput type="text" [(ngModel)]="empleado.apellido_materno" name="apellido_materno" (input)="generarClaveEmpleado()" required />
-</mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido Paterno</mat-label>
+        <input matInput type="text" formControlName="apellido_paterno" (input)="generarClaveEmpleado()" required />
+      </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido Materno</mat-label>
+        <input matInput type="text" formControlName="apellido_materno" (input)="generarClaveEmpleado()" required />
+      </mat-form-field>
+    </div>
 
-    <!-- RFC -->
-    <mat-form-field appearance="outline">
-      <mat-label>RFC</mat-label>
-      <input matInput type="text" [(ngModel)]="empleado.rfc" name="rfc" required />
-    </mat-form-field>
+    <h4 class="form-title">Información Personal</h4>
+    <div class="section">
+      <mat-form-field appearance="outline">
+        <mat-label>RFC</mat-label>
+        <input matInput type="text" formControlName="rfc" required />
+      </mat-form-field>
 
-    <!-- Fecha de Nacimiento -->
-    <mat-form-field appearance="outline">
-      <mat-label>Fecha de Nacimiento</mat-label>
-      <input matInput type="date" [(ngModel)]="empleado.fecha_nacimiento" name="fecha_nacimiento" required />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha de Nacimiento</mat-label>
+        <input matInput type="date" formControlName="fecha_nacimiento" required />
+      </mat-form-field>
 
-    <!-- Sexo -->
-    <mat-form-field appearance="outline">
-      <mat-label>Sexo</mat-label>
-      <mat-select [(ngModel)]="empleado.sexo" name="sexo" required>
-        <mat-option value="Masculino">Masculino</mat-option>
-        <mat-option value="Femenino">Femenino</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Sexo</mat-label>
+        <mat-select formControlName="sexo" required>
+          <mat-option value="Masculino">Masculino</mat-option>
+          <mat-option value="Femenino">Femenino</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <!-- Foto 
-    <mat-form-field appearance="outline">
-      <mat-label>Foto (URL)</mat-label>
-      <input matInput type="text" [(ngModel)]="empleado.foto" name="foto" />
-    </mat-form-field> -->
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="contrasenia" required />
+      </mat-form-field>
+    </div>
 
-    <!-- Contraseña -->
-    <mat-form-field appearance="outline">
-      <mat-label>Contraseña</mat-label>
-      <input matInput type="password" [(ngModel)]="empleado.contrasenia" name="contrasenia" required />
-    </mat-form-field>
+    <h4 class="form-title">Rol y Cargo</h4>
+    <div class="section">
+      <mat-form-field appearance="outline">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="rol" required>
+          <mat-option value="2">Empleado</mat-option>
+          <mat-option value="1">Admin</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <!-- Rol -->
-    <mat-form-field appearance="outline">
-      <mat-label>Rol</mat-label>
-      <mat-select [(ngModel)]="empleado.rol" name="rol" required>
-        <mat-option value="2">Empleado</mat-option>
-        <mat-option value="1">Admin</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Departamento</mat-label>
+        <mat-select formControlName="departamento">
+          <mat-option *ngFor="let d of departamentos" [value]="d.nombre">{{ d.nombre }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Puesto</mat-label>
+        <mat-select formControlName="puesto">
+          <mat-option *ngFor="let p of puestos" [value]="p.nombre_puesto">{{ p.nombre_puesto }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
     <h4 class="form-title">Domicilio</h4>
+    <div formGroupName="domicilio" class="section">
+      <mat-form-field appearance="outline">
+        <mat-label>Calle</mat-label>
+        <input matInput type="text" formControlName="calle" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Calle</mat-label>
-      <input matInput type="text" [(ngModel)]="empleado.domicilio.calle" name="calle" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Número Interior</mat-label>
+        <input matInput type="text" formControlName="numero_interior" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Número Interior</mat-label>
-      <input matInput type="text" [(ngModel)]="empleado.domicilio.numero_interior" name="numero_interior" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Número Exterior</mat-label>
+        <input matInput type="text" formControlName="numero_exterior" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Número Exterior</mat-label>
-      <input matInput type="text" [(ngModel)]="empleado.domicilio.numero_exterior" name="numero_exterior" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Colonia</mat-label>
+        <input matInput type="text" formControlName="colonia" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Colonia</mat-label>
-      <input matInput type="text" [(ngModel)]="empleado.domicilio.colonia" name="colonia" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Código Postal</mat-label>
+        <input matInput type="text" formControlName="codigo_postal" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Código Postal</mat-label>
-      <input matInput type="text" [(ngModel)]="empleado.domicilio.codigo_postal" name="codigo_postal" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Ciudad</mat-label>
+        <mat-select formControlName="ciudad">
+          <mat-option *ngFor="let c of ciudades" [value]="c.ciudad">{{ c.ciudad }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Ciudad</mat-label>
-      <mat-select [(ngModel)]="empleado.domicilio.ciudad" name="ciudad">
-        <mat-option *ngFor="let c of ciudades" [value]="c.ciudad">{{ c.ciudad }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <h4 class="form-title">Teléfonos</h4>
+    <div formArrayName="telefonos" class="section">
+      <div *ngFor="let telefono of telefonos.controls; let i = index">
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono {{ i + 1 }}</mat-label>
+          <input matInput type="text" [formControlName]="i" required />
+        </mat-form-field>
+        <button mat-icon-button color="warn" (click)="eliminarTelefono(i)" *ngIf="telefonos.length > 1">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <button mat-button color="primary" (click)="agregarTelefono()">Agregar Teléfono</button>
+    </div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Departamento</mat-label>
-      <mat-select [(ngModel)]="empleado.departamento" name="departamento">
-        <mat-option *ngFor="let d of departamentos" [value]="d.nombre">{{ d.nombre }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Puesto</mat-label>
-      <mat-select [(ngModel)]="empleado.puesto" name="puesto">
-        <mat-option *ngFor="let p of puestos" [value]="p.nombre_puesto">{{ p.nombre_puesto }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Teléfonos</mat-label>
-      <input matInput type="text" [(ngModel)]="empleado.telefonos[0]" name="telefonos" required />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Correos</mat-label>
-      <input matInput type="email" [(ngModel)]="empleado.correos[0]" name="correos" required />
-    </mat-form-field>
+    <h4 class="form-title">Correos</h4>
+    <div formArrayName="correos" class="section">
+      <div *ngFor="let correo of correos.controls; let i = index">
+        <mat-form-field appearance="outline">
+          <mat-label>Correo {{ i + 1 }}</mat-label>
+          <input matInput type="email" [formControlName]="i" required />
+        </mat-form-field>
+        <button mat-icon-button color="warn" (click)="eliminarCorreo(i)" *ngIf="correos.length > 1">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <button mat-button color="primary" (click)="agregarCorreo()">Agregar Correo</button>
+    </div>
 
     <h4 class="form-title">Referencias Familiares</h4>
+    <div formArrayName="referencias_familiares" class="section">
+      <div *ngFor="let referencia of referenciasFamiliares.controls; let i = index" [formGroupName]="i">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre</mat-label>
+          <input matInput type="text" formControlName="nombre" />
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Nombre</mat-label>
-      <input matInput type="text" [(ngModel)]="empleado.referencias_familiares[0].nombre" name="referencias_familiares" />
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Parentesco</mat-label>
+          <mat-select formControlName="parentesco">
+            <mat-option *ngFor="let p of parentescos" [value]="p.parentesco">{{ p.parentesco }}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Parentesco</mat-label>
-      <mat-select [(ngModel)]="empleado.referencias_familiares[0].parentesco" name="parentesco">
-        <mat-option *ngFor="let p of parentescos" [value]="p.parentesco">{{ p.parentesco }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Teléfono</mat-label>
+          <input matInput type="text" formControlName="telefonos" />
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Teléfonos</mat-label>
-      <input matInput type="text" [(ngModel)]="empleado.referencias_familiares[0].telefonos[0]" name="referencias_familiares_telefonos" />
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Correo</mat-label>
+          <input matInput type="email" formControlName="correo" />
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Correo</mat-label>
-      <input matInput type="email" [(ngModel)]="empleado.referencias_familiares[0].correo" name="referencias_familiares_correo" />
-    </mat-form-field>
+        <button mat-icon-button color="warn" (click)="eliminarReferenciaFamiliar(i)" *ngIf="referenciasFamiliares.length > 1">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <button mat-button color="primary" (click)="agregarReferenciaFamiliar()">Agregar Referencia Familiar</button>
+    </div>
 
     <button mat-raised-button class="submit-btn" type="submit">Registrar</button>
   </form>
