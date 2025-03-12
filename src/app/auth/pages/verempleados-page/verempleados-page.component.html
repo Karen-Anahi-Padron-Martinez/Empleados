@@ -34,6 +34,8 @@
     <p><strong>Sexo:</strong> {{ selectedUser.sexo }}</p>
     <!-- Si tienes una foto, puedes mostrarla de esta forma -->
     <p><strong>Foto:</strong> <img [src]="selectedUser.foto" alt="Foto del usuario" width="100" /></p>
+    <button mat-button (click)="bajaTemporal(selectedUser._id)" class="btn btn-warning">Baja Temporal</button>
+    <button mat-button (click)="bajaDefinitiva(selectedUser._id)" class="btn btn-danger">Baja Definitiva</button>
   </div>
 </div>
 

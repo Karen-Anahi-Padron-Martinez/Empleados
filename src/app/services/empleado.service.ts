@@ -18,6 +18,15 @@ export class EmpleadoService {
   getEmpleados(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+  // Actualizar rol (baja temporal)
+  updateRol(id: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}/rol`, {});
+  }
+
+  // Eliminar un usuario (baja definitiva)
+  deleteEmpleado(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
 }
 
 

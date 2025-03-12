@@ -48,23 +48,22 @@ export class VerempleadosPageComponent implements OnInit {
     }
   }
 
-  // Dar baja temporal al usuario
-  deactivateUser() {
-    if (this.selectedUser) {
-      this.selectedUser.status = 'Baja Temporal';
-      alert(`Usuario ${this.selectedUser.nombre} dado de baja temporalmente`);
-    }
+  // Dar de baja temporal (actualizar rol)
+  bajaTemporal(id: string): void {
+    this.empleadoService.updateRol(id).subscribe(response => {
+      console.log('Baja temporal realizada:', response);
+      // Actualizar la lista de usuarios para reflejar el cambio
+      this.ngOnInit(); // Recargar los datos
+    });
   }
 
-  // Dar baja definitiva al usuario
-  permanentlyDeleteUser() {
-    if (this.selectedUser) {
-      const index = this.users.findIndex(user => user.id === this.selectedUser.id);
-      if (index > -1) {
-        this.users.splice(index, 1);  // Eliminar usuario
-        this.selectedUser = null;  // Limpiar selección
-        alert(`Usuario ${this.selectedUser.nombre} dado de baja definitiva`);
-      }
-    }
+  // Dar de baja definitiva (eliminar usuario)
+  bajaDefinitiva(id: string): void {
+    this.empleadoService.deleteEmpleado(id).subscribe(response => {
+      console.log('Usuario eliminado:', response);
+      // Eliminar el usuario de la lista localmente
+      this.users = this.users.filter(user => user._id !== id);
+      this.selectedUser = null; // Limpiar el detalle del usuario seleccionado
+    });
   }
 }
