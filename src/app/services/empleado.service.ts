@@ -15,6 +15,9 @@ export class EmpleadoService {
   registrarEmpleado(empleado: any): Observable<any> {
     return this.http.post(this.apiUrl, empleado);
   }
+  getEmpleados(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
 }
 
 

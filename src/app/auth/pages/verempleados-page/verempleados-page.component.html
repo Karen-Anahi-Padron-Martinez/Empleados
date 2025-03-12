@@ -1,35 +1,46 @@
 <div class="container">
-    <h2 class="form-titl">Gestión de Usuarios</h2>
+  <h2 class="form-titl">Gestión de Usuarios</h2>
+
+  <!-- Barra de búsqueda -->
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="searchText" placeholder="Buscar por apellido, RFC o clave..." />
+  </div>
+
+  <!-- Maestro: Lista de usuarios -->
+  <div class="user-list">
+    <h3 class="form-titl">Lista de Usuarios</h3>
+    <mat-list>
+      <mat-list-item *ngFor="let user of filteredUsers" (click)="selectUser(user)">
+        <mat-icon matListItemIcon>person</mat-icon>
+        <!-- Mostrar nombre completo (nombre + apellido paterno + apellido materno) -->
+        {{ user.nombre }} {{ user.apellido_paterno }} {{ user.apellido_materno }} ({{ user.rfc }})
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <!-- Detalle: Información del usuario seleccionado -->
+  <div *ngIf="selectedUser" class="user-detail">
+    <h3 class="form-titl">Detalles del Usuario</h3>
+    <!-- Mostrar todos los detalles del usuario seleccionado -->
+    <p><strong>Nombre:</strong> {{ selectedUser.nombre }} {{ selectedUser.apellido_paterno }} {{ selectedUser.apellido_materno }}</p>
+    <p><strong>RFC:</strong> {{ selectedUser.rfc }}</p>
+    <p><strong>Clave:</strong> {{ selectedUser.clave_empleado }}</p>
+    <p><strong>Fecha de Alta:</strong> {{ selectedUser.fecha_alta | date }}</p>
+    <p><strong>Departamento:</strong> {{ selectedUser.departamento }}</p>
+    <p><strong>Puesto:</strong> {{ selectedUser.puesto }}</p>
+    <p><strong>Correo:</strong> {{ selectedUser.correos[0] }}</p>
+    <p><strong>Teléfonos:</strong> {{ selectedUser.telefonos.join(', ') }}</p>
+    <p><strong>Fecha de Nacimiento:</strong> {{ selectedUser.fecha_nacimiento | date }}</p>
+    <p><strong>Sexo:</strong> {{ selectedUser.sexo }}</p>
+    <!-- Si tienes una foto, puedes mostrarla de esta forma -->
+    <p><strong>Foto:</strong> <img [src]="selectedUser.foto" alt="Foto del usuario" width="100" /></p>
+  </div>
+</div>
+
   
-    <!-- Barra de búsqueda -->
-    <div class="search-bar">
-      <input type="text" [(ngModel)]="searchText" placeholder="Buscar por apellido, RFC o clave..." />
-    </div>
-  
-    <!-- Maestro: Lista de usuarios -->
-    <div class="user-list">
-      <h3 class="form-titl">Lista de Usuarios</h3>
-      <mat-list>
-        <mat-list-item *ngFor="let user of filteredUsers" (click)="selectUser(user)">
-          <mat-icon matListItemIcon>person</mat-icon>
-          {{ user.nombre }} {{ user.apellido }} ({{ user.rfc }})
-        </mat-list-item>
-      </mat-list>
-    </div>
-  
-    <!-- Detalle: Información del usuario seleccionado -->
-    <div *ngIf="selectedUser" class="user-detail">
-      <h3 class="form-titl">Detalles del Usuario</h3>
-      <p><strong>Nombre:</strong> {{ selectedUser.nombre }} {{ selectedUser.apellido }}</p>
-      <p><strong>RFC:</strong> {{ selectedUser.rfc }}</p>
-      <p><strong>Clave:</strong> {{ selectedUser.clave }}</p>
-      <p><strong>Status:</strong> {{ selectedUser.status }}</p>
-  
-      <div class="actions">
+      <!-- <div class="actions">
         <button mat-button (click)="updateUser()">Actualizar</button>
         <button mat-button (click)="deactivateUser()">Dar Baja Temporal</button>
         <button mat-button (click)="permanentlyDeleteUser()">Dar Baja Definitiva</button>
-      </div>
-    </div>
-  </div>
-  
+      </div> -->
+   
