@@ -22,6 +22,10 @@ export class EmpleadoService {
   updateRol(id: string): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}/rol`, {});
   }
+  
+  actualizarEmpleado(clave_empleado: string, empleado: any) {
+    return this.http.put(`${this.apiUrl}/actualizar/${clave_empleado}`, empleado);
+  }
 
   // Eliminar un usuario (baja definitiva)
   deleteEmpleado(id: string): Observable<any> {

@@ -11,6 +11,8 @@ export class VerempleadosPageComponent implements OnInit {
   searchText: string = '';  // Texto de búsqueda
   users: any[] = [];        // Datos de los empleados
   selectedUser: any = null; // Usuario seleccionado
+  isEditing: boolean = false;
+  telefonosText: string = ''; 
 
   constructor(private empleadoService: EmpleadoService) {}
 
@@ -36,17 +38,27 @@ export class VerempleadosPageComponent implements OnInit {
   // Seleccionar usuario para mostrar detalles
   selectUser(user: any) {
     this.selectedUser = user;
+    this.isEditing = false;
   }
 
+  // Activar el modo de edición
+  editarEmpleado() {
+    this.isEditing = true;  // Activar el modo de edición
+  }
 
-
-  // Actualizar información del usuario
-  updateUser() {
+  // Función para actualizar el empleado
+  actualizarEmpleado() {
     if (this.selectedUser) {
-      // Lógica de actualización
-      alert(`Actualizando usuario ${this.selectedUser.nombre}`);
+      this.empleadoService.actualizarEmpleado(this.selectedUser.clave_empleado, this.selectedUser).subscribe(response => {
+        console.log('Empleado actualizado:', response);
+        alert('Empleado actualizado correctamente');
+        this.isEditing = false;  // Salimos del modo de edición
+      }, error => {
+        console.error('Error al actualizar el empleado:', error);
+      });
     }
   }
+  
 
   // Dar de baja temporal (actualizar rol)
   bajaTemporal(id: string): void {
