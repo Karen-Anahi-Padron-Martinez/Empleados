@@ -1,0 +1,153 @@
+/* Contenedor principal */
+.container {
+    margin: 20px auto;
+    max-width: 900px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título */
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #114c5f; /* Verde oscuro */
+    margin-bottom: 20px;
+  }
+  
+  
+  /* Estilos para la lista de usuarios */
+  mat-list {
+    margin-top: 20px;
+  }
+  
+  /* Estilos para cada item de la lista de usuarios */
+  mat-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s;
+  }
+  
+  mat-list-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Iconos de botones */
+  mat-icon {
+    color: #3f51b5;
+    cursor: pointer;
+    font-size: 24px;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  mat-icon:hover {
+    color: #ff5722;
+  }
+  
+  /* Botones de acción (alta y baja) */
+  button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin-left: 10px;
+  }
+  
+  button.mat-icon-button {
+    font-size: 30px;
+    color: #4caf50; /* Color de la flecha hacia arriba (alta) */
+    transition: transform 0.3s ease;
+  }
+  
+  button.mat-icon-button:hover {
+    transform: scale(1.1);
+  }
+  
+  button.mat-icon-button:focus {
+    outline: none;
+  }
+  
+  button.mat-icon-button:last-child {
+    color: #f44336; /* Color de la papelera (baja) */
+  }
+  
+  button.mat-icon-button:last-child:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Estilo para el mensaje de error */
+  .error-message {
+    color: red;
+    font-size: 1rem;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .container {
+      padding: 15px;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    mat-list-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    mat-icon {
+      font-size: 20px;
+    }
+  
+    button.mat-icon-button {
+      font-size: 24px;
+    }
+    /* Contenedor del botón de acción */
+/* Contenedor del botón de acción */
+.action-button {
+    display: flex;
+    align-items: center;  /* Alinea el icono y el texto verticalmente */
+    padding: 5px 15px;  /* Espaciado dentro del botón */
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    color: inherit; /* Para que el color se herede de los estilos globales */
+    gap: 8px; /* Añade espacio entre el icono y el texto */
+  }
+  
+  /* Estilo del texto junto al icono */
+  .button-text {
+    font-size: 1rem; /* Tamaño de fuente del texto */
+    white-space: nowrap; /* Asegura que el texto no se divida en varias líneas */
+  }
+  
+  /* Cambiar tamaño del icono */
+  mat-icon {
+    font-size: 24px;
+    transition: color 0.3s ease;
+  }
+  
+  /* Efecto hover para los botones */
+  .action-button:hover {
+    transform: scale(1.1); /* Aumentar ligeramente el tamaño al pasar el mouse */
+  }
+  
+  /* Cambiar color de los iconos */
+  button.mat-icon-button:first-child:hover mat-icon {
+    color: #4caf50; /* Verde para dar alta */
+  }
+  
+  button.mat-icon-button:last-child:hover mat-icon {
+    color: #f44336; /* Rojo para baja definitiva */
+  }
+  
+
+  }
+  

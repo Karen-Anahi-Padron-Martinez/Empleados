@@ -22,7 +22,11 @@ export class EmpleadoService {
   updateRol(id: string): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}/rol`, {});
   }
-  
+  // Actualizar rol (baja temporal)
+  updatRol(id: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}/rols`, {});
+  }
+
   actualizarEmpleado(clave_empleado: string, empleado: any) {
     return this.http.put(`${this.apiUrl}/actualizar/${clave_empleado}`, empleado);
   }
@@ -31,6 +35,12 @@ export class EmpleadoService {
   deleteEmpleado(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+
+  // Obtener los usuarios con rol 3
+  getUsersWithRole3(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/role3`);
+  }
+
 }
 
 
