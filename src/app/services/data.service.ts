@@ -10,26 +10,26 @@ export class DataService {
   constructor(private http: HttpClient) {}
 
   getDepartamentos() {
-    return this.http.get<any[]>(`${this.apiUrl}/departamento`);
+    return this.http.get<any[]>(`${this.apiUrl}/departamento/departamento`);
   }
 
   getPuestos() {
-    return this.http.get<any[]>(`${this.apiUrl}/puesto`);
+    return this.http.get<any[]>(`${this.apiUrl}/puesto/puesto`);
   }
 
   getDocumentos() {
-    return this.http.get<any[]>(`${this.apiUrl}/documento`);
+    return this.http.get<any[]>(`${this.apiUrl}/documento/documento`);
   }
 
   getActividades() {
-    return this.http.get<any[]>(`${this.apiUrl}/actividad`);
+    return this.http.get<any[]>(`${this.apiUrl}/actividad/actividad`);
   }
 
   getCiudades() {
-    return this.http.get<any[]>(`${this.apiUrl}/ciudad`);
+    return this.http.get<any[]>(`${this.apiUrl}/ciudad/ciudad`);
   }
 
   getParentescos() {
-    return this.http.get<any[]>(`${this.apiUrl}/parentesco`);
+    return this.http.get<any[]>(`${this.apiUrl}/parentesco/parentesco`);
   }
 }

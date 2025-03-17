@@ -8,24 +8,27 @@
   
     <div *ngIf="selectedOption === 'course'" class="course-form">
       <h3 class="form-titl">Formulario de Curso</h3>
-    
-      <form>
-        <label for="courseName">Nombre del Curso:</label>
-        <input type="text" id="courseName" [(ngModel)]="nombreCurso" name="nombreCurso" required>
-    
-        <label for="startDate">Fecha de Inicio:</label>
-        <input type="date" id="startDate" [(ngModel)]="fechaInicio" name="fechaInicio" required>
-    
-        <label for="endDate">Fecha de Término:</label>
-        <input type="date" id="endDate" [(ngModel)]="fechaTermino" name="fechaTermino" required>
-    
-        <label for="documentType">Tipo de Documento Entregado:</label>
-        <select id="documentType" [(ngModel)]="documento" name="documento">
-          <option value="constancia">Constancia</option>
-          <option value="participacion">Participación</option>
-          <option value="diploma">Diploma</option>
-        </select>
-      </form>
+
+<form [formGroup]="form" (ngSubmit)="registrarCurso()">
+  <label for="courseName">Nombre del Curso:</label>
+  <input type="text" id="courseName" formControlName="nombreCurso" required>
+
+  <label for="startDate">Fecha de Inicio:</label>
+  <input type="date" id="startDate" formControlName="fechaInicio" required>
+
+  <label for="endDate">Fecha de Término:</label>
+  <input type="date" id="endDate" formControlName="fechaTermino" required>
+
+  <label for="documento">Documento:</label>
+  <select id="documento" class="form-control" formControlName="documentos" *ngIf="documentos.length > 0">
+    <option value="">Seleccione un documento</option>
+    <option *ngFor="let documento of documentos" [value]="documento._id">{{ documento.tipo_documento }}</option>
+  </select>
+  
+  <div *ngIf="documentos.length === 0">
+    <p>No hay documentos disponibles</p>
+  </div>
+</form>
     
       <h4 class="form-titl">Usuarios Registrados en el Curso</h4>
       <div *ngFor="let empleado of empleados">

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CursoService } from '../../../services/curso.service';
 import { HttpClient } from '@angular/common/http';
+import { DataService } from '../../../services/data.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-registracp-page',
@@ -8,15 +10,18 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./registrarcp-page.component.css']
 })
 export class RegistracpPageComponent implements OnInit {
-  selectedOption: string = ''; // 'course' or 'activity'
-  usersInCourse: string[] = []; // List of users for the course
-  usersInActivity: string[] = []; // List of users for the activity
+  form: FormGroup;
+  selectedOption: string = ''; 
+  usersInCourse: string[] = []; 
+  usersInActivity: string[] = []; 
   empleados: any[] = [];  // Lista de empleados
   empleadosSeleccionados: string[] = [];  // Claves de empleados seleccionados
   nombreCurso: string = '';
   fechaInicio: string = '';
   fechaTermino: string = '';
   documento: string = '';
+  documentos: any[] = []; // Asumí que falta esta propiedad
+
   // Function to toggle form based on the selected option
   selectOption(option: string) {
     this.selectedOption = option;
@@ -38,11 +43,24 @@ export class RegistracpPageComponent implements OnInit {
     this.usersInActivity = [];
   }
 
-  constructor(private cursoService: CursoService, private http: HttpClient) {}
+  constructor(private fb: FormBuilder,private cursoService: CursoService, private dataService: DataService, private http: HttpClient) {
+     // Crear el formulario reactivo
+     this.form = this.fb.group({
+      nombreCurso: ['', Validators.required],  // Campo para el nombre del curso
+      fechaInicio: ['', Validators.required],  // Campo para la fecha de inicio
+      fechaTermino: ['', Validators.required],  // Campo para la fecha de término
+      documentos: ['', Validators.required]  // Campo para seleccionar el documento
+    });
+  }
 
   ngOnInit() {
-    this.cargarEmpleados();
+    this.cargarEmpleados(); // Llamada a cargarEmpleados para cargar los empleados
+    this.dataService.getDocumentos().subscribe(data => {
+      console.log('Documentos recibidos:', data);
+      this.documentos = data;
+    });// Asumiendo que esta función obtiene los documentos
   }
+
   cargarEmpleados() {
     this.http.get('http://localhost:3000/api/nombre/empleados').subscribe((data: any) => {
       this.empleados = data;
@@ -56,7 +74,7 @@ export class RegistracpPageComponent implements OnInit {
     }
 
     const cursoData = {
-      clave_empleado:[...this.empleadosSeleccionados],
+      clave_empleado: [...this.empleadosSeleccionados],
       nombre_curso: this.nombreCurso,
       fecha_inicio: this.fechaInicio,
       fecha_termino: this.fechaTermino,
@@ -74,12 +92,11 @@ export class RegistracpPageComponent implements OnInit {
   }
 
   toggleEmpleado(clave: string) {
-  if (this.empleadosSeleccionados.includes(clave)) {
-    this.empleadosSeleccionados = this.empleadosSeleccionados.filter(e => e !== clave);
-  } else {
-    this.empleadosSeleccionados.push(clave);
+    if (this.empleadosSeleccionados.includes(clave)) {
+      this.empleadosSeleccionados = this.empleadosSeleccionados.filter(e => e !== clave);
+    } else {
+      this.empleadosSeleccionados.push(clave);
+    }
+    console.log('📌 Empleados seleccionados:', this.empleadosSeleccionados);
   }
-  console.log('📌 Empleados seleccionados:', this.empleadosSeleccionados);
-}
-
 }
