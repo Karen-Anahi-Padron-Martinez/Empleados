@@ -1,128 +1,127 @@
 <div class="container">
-    <h2 class="form-title">Registrar Curso o Actividad</h2>
-  
-    <div class="selection">
-      <button mat-button (click)="selectOption('course')">Registrar Curso</button>
-      <button mat-button (click)="selectOption('activity')">Registrar Actividad</button>
-    </div>
-  
-    <div *ngIf="selectedOption === 'course'" class="course-form">
-      <h3 class="form-titl">Formulario de Curso</h3>
+  <h2 class="form-title">Registrar Curso o Actividad</h2>
+
+  <div class="selection">
+    <button mat-button (click)="selectOption('course')">Registrar Curso</button>
+    <button mat-button (click)="selectOption('activity')">Registrar Actividad</button>
+  </div>
+
+  <div *ngIf="selectedOption === 'course'" class="course-form">
+    <h3 class="form-titl">Formulario de Curso</h3>
 
 <form [formGroup]="form" (ngSubmit)="registrarCurso()">
-  <label for="courseName">Nombre del Curso:</label>
-  <input type="text" id="courseName" formControlName="nombreCurso" required>
+<label for="courseName">Nombre del Curso:</label>
+<input type="text" id="courseName" formControlName="nombreCurso" required>
 
-  <label for="startDate">Fecha de Inicio:</label>
-  <input type="date" id="startDate" formControlName="fechaInicio" required>
+<label for="startDate">Fecha de Inicio:</label>
+<input type="date" id="startDate" formControlName="fechaInicio" required>
 
-  <label for="endDate">Fecha de Término:</label>
-  <input type="date" id="endDate" formControlName="fechaTermino" required>
+<label for="endDate">Fecha de Término:</label>
+<input type="date" id="endDate" formControlName="fechaTermino" required>
 
-  <label for="documento">Documento:</label>
-  <select id="documento" class="form-control" formControlName="documentos" *ngIf="documentos.length > 0">
-    <option value="">Seleccione un documento</option>
-    <option *ngFor="let documento of documentos" [value]="documento._id">{{ documento.tipo_documento }}</option>
-  </select>
-  
-  <div *ngIf="documentos.length === 0">
-    <p>No hay documentos disponibles</p>
-  </div>
+<label for="documento">Documento:</label>
+<select id="documento" class="form-control" formControlName="documentos" *ngIf="documentos.length > 0">
+  <option value="">Seleccione un documento</option>
+  <option *ngFor="let documento of documentos" [value]="documento._id">{{ documento.tipo_documento }}</option>
+</select>
+
+<div *ngIf="documentos.length === 0">
+  <p>No hay documentos disponibles</p>
+</div>
 </form>
+  
+    <h4 class="form-titl">Usuarios Registrados en el Curso</h4>
+    <div *ngFor="let empleado of empleados">
+      <input type="checkbox" [value]="empleado.clave_empleado" (change)="toggleEmpleado(empleado.clave_empleado)">
+      {{ empleado.nombre }} ({{ empleado.clave_empleado }})
+    </div>
+  
+    <button (click)="registrarCurso()">Registrar Curso</button>
+  </div>
+
+  <div *ngIf="selectedOption === 'activity'" class="activity-form">
+    <h3 class="form-titl">Formulario de Actividad</h3>
+<form [formGroup]="formActividad" (ngSubmit)="registrarParticipacion()">
+<label for="actividad">Actividad:</label>
+<select id="actividad" class="form-control" formControlName="nombreActividad" required>
+  <option value="">Seleccione una actividad</option>
+  <option *ngFor="let actividad of actividades" [value]="actividad.nombre_actividad">{{ actividad.nombre_actividad }}</option>
+</select>
+
+<div *ngIf="formActividad.controls['nombreActividad'].hasError('required') && formActividad.controls['nombreActividad'].touched" class="text-danger">
+  Seleccionar una actividad es obligatorio.
+</div>
+
+<label for="participationStatus">Estatus de Participación:</label>
+<select id="participationStatus" class="form-control" formControlName="estatus">
+  <option value="1">Participó</option>
+  <option value="0">No Participó</option>
+</select>
+
+
     
-      <h4 class="form-titl">Usuarios Registrados en el Curso</h4>
+      <h4 class="form-titl">Empleados Registrados:</h4>
       <div *ngFor="let empleado of empleados">
         <input type="checkbox" [value]="empleado.clave_empleado" (change)="toggleEmpleado(empleado.clave_empleado)">
         {{ empleado.nombre }} ({{ empleado.clave_empleado }})
       </div>
     
-      <button (click)="registrarCurso()">Registrar Curso</button>
-    </div>
-
-    <div *ngIf="selectedOption === 'activity'" class="activity-form">
-      <h3 class="form-titl">Formulario de Actividad</h3>
-<form [formGroup]="formActividad" (ngSubmit)="registrarParticipacion()">
-  <label for="actividad">Actividad:</label>
-  <select id="actividad" class="form-control" formControlName="nombreActividad" required>
-    <option value="">Seleccione una actividad</option>
-    <option *ngFor="let actividad of actividades" [value]="actividad.nombre_actividad">{{ actividad.nombre_actividad }}</option>
-  </select>
-
-  <div *ngIf="formActividad.controls['nombreActividad'].hasError('required') && formActividad.controls['nombreActividad'].touched" class="text-danger">
-    Seleccionar una actividad es obligatorio.
-  </div>
-  
-  <label for="participationStatus">Estatus de Participación:</label>
-  <select id="participationStatus" class="form-control" formControlName="estatus">
-    <option value="1">Participó</option>
-    <option value="0">No Participó</option>
-  </select>
-
-
+      <button type="submit" [disabled]="empleadosSeleccionados.length === 0">Registrar Participación</button>
+    </form>
+          
       
-        <h4 class="form-titl">Empleados Registrados:</h4>
-        <div *ngFor="let empleado of empleados">
-          <input type="checkbox" [value]="empleado.clave_empleado" (change)="toggleEmpleado(empleado.clave_empleado)">
-          {{ empleado.nombre }} ({{ empleado.clave_empleado }})
+        <div class="reset">
+          <button mat-button (click)="resetForm()">Resetear</button>
         </div>
+      </div>
       
-        <button type="submit" [disabled]="empleadosSeleccionados.length === 0">Registrar Participación</button>
-      </form>
-            
-        
-          <div class="reset">
-            <button mat-button (click)="resetForm()">Resetear</button>
-          </div>
-        </div>
-        
 
 <!-- Formulario para Registrar Curso
 <h3>Registrar Curso</h3>
 <form [formGroup]="formCurso" (ngSubmit)="registrarCurso()">
-  <label for="nombreCurso">Nombre del Curso:</label>
-  <input type="text" id="nombreCurso" formControlName="nombreCurso" required>
+<label for="nombreCurso">Nombre del Curso:</label>
+<input type="text" id="nombreCurso" formControlName="nombreCurso" required>
 
-  <label for="fechaInicio">Fecha de Inicio:</label>
-  <input type="date" id="fechaInicio" formControlName="fechaInicio" required>
+<label for="fechaInicio">Fecha de Inicio:</label>
+<input type="date" id="fechaInicio" formControlName="fechaInicio" required>
 
-  <label for="fechaTermino">Fecha de Término:</label>
-  <input type="date" id="fechaTermino" formControlName="fechaTermino" required>
+<label for="fechaTermino">Fecha de Término:</label>
+<input type="date" id="fechaTermino" formControlName="fechaTermino" required>
 
-  <label for="documentos">Documento:</label>
-  <select id="documentos" class="form-control" formControlName="documentos">
-    <option value="">Seleccione un documento</option>
-    <option *ngFor="let documento of documentos" [value]="documento._id">{{ documento.tipo_documento }}</option>
-  </select>
+<label for="documentos">Documento:</label>
+<select id="documentos" class="form-control" formControlName="documentos">
+  <option value="">Seleccione un documento</option>
+  <option *ngFor="let documento of documentos" [value]="documento._id">{{ documento.tipo_documento }}</option>
+</select>
 
-  <div *ngIf="formCurso.invalid" class="text-danger">
-    Todos los campos son obligatorios.
-  </div>
+<div *ngIf="formCurso.invalid" class="text-danger">
+  Todos los campos son obligatorios.
+</div>
 
-  <button type="submit" [disabled]="formCurso.invalid">Registrar Curso</button>
+<button type="submit" [disabled]="formCurso.invalid">Registrar Curso</button>
 </form>
 
 <!-- Formulario para Registrar Participación 
 <h3>Registrar Participación</h3>
 <form [formGroup]="formParticipacion" (ngSubmit)="registrarParticipacion()">
-  <label for="actividad">Actividad:</label>
-  <select id="actividad" formControlName="actividad">
-    <option value="">Seleccione una actividad</option>
-    <option *ngFor="let actividad of actividades" [value]="actividad._id">{{ actividad.nombre_actividad }}</option>
-  </select>
+<label for="actividad">Actividad:</label>
+<select id="actividad" formControlName="actividad">
+  <option value="">Seleccione una actividad</option>
+  <option *ngFor="let actividad of actividades" [value]="actividad._id">{{ actividad.nombre_actividad }}</option>
+</select>
 
-  <label for="estatus">Estatus de Participación:</label>
-  <select id="estatus" formControlName="estatus">
-    <option value="">Seleccione un estatus</option>
-    <option value="Participó">Participó</option>
-    <option value="No Participó">No Participó</option>
-  </select>
+<label for="estatus">Estatus de Participación:</label>
+<select id="estatus" formControlName="estatus">
+  <option value="">Seleccione un estatus</option>
+  <option value="Participó">Participó</option>
+  <option value="No Participó">No Participó</option>
+</select>
 
-  <div *ngIf="formParticipacion.invalid" class="text-danger">
-    Todos los campos son obligatorios.
-  </div>
+<div *ngIf="formParticipacion.invalid" class="text-danger">
+  Todos los campos son obligatorios.
+</div>
 
-  <button type="submit" [disabled]="formParticipacion.invalid">Registrar Participación</button>
+<button type="submit" [disabled]="formParticipacion.invalid">Registrar Participación</button>
 </form>-->
 
-  
-  
+

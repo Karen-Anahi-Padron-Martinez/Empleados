@@ -81,6 +81,8 @@ export class RegistracpPageComponent implements OnInit {
   }
 
   registrarCurso() {
+    const datos = this.form.value;
+    console.log("Enviando datos:", datos);
     if (this.empleadosSeleccionados.length === 0) {
       alert('Debes seleccionar al menos un empleado.');
       return;
@@ -88,10 +90,10 @@ export class RegistracpPageComponent implements OnInit {
 
     const cursoData = {
       clave_empleado: [...this.empleadosSeleccionados],
-      nombre_curso: this.nombreCurso,
-      fecha_inicio: this.fechaInicio,
-      fecha_termino: this.fechaTermino,
-      documento: this.documento
+      nombre_curso: datos.nombreCurso,
+      fecha_inicio: datos.fechaInicio,
+      fecha_termino: datos.fechaTermino,
+      documento: datos.documento
     };
 
     this.cursoService.registrarCursos(cursoData).subscribe(response => {
@@ -142,5 +144,4 @@ export class RegistracpPageComponent implements OnInit {
 
   
 }
-
 
