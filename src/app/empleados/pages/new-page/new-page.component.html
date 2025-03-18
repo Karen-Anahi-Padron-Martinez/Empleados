@@ -1,1 +1,42 @@
-<p>new-page works!</p>
+<div class="container">
+  <h2 class="form-title">Registrar Curso</h2>
+
+  <form [formGroup]="form" (ngSubmit)="registrarCurso()">
+    <label for="courseName">Nombre del Curso:</label>
+    <input type="text" id="courseName" formControlName="nombreCurso" required>
+
+    <div *ngIf="form.controls['nombreCurso'].hasError('required') && form.controls['nombreCurso'].touched" class="text-danger">
+      El nombre del curso es obligatorio.
+    </div>
+
+    <label for="startDate">Fecha de Inicio:</label>
+    <input type="date" id="startDate" formControlName="fechaInicio" required>
+
+    <div *ngIf="form.controls['fechaInicio'].hasError('required') && form.controls['fechaInicio'].touched" class="text-danger">
+      La fecha de inicio es obligatoria.
+    </div>
+
+    <label for="endDate">Fecha de Término:</label>
+    <input type="date" id="endDate" formControlName="fechaTermino" required>
+
+    <div *ngIf="form.controls['fechaTermino'].hasError('required') && form.controls['fechaTermino'].touched" class="text-danger">
+      La fecha de término es obligatoria.
+    </div>
+
+    <label for="documento">Documento:</label>
+    <select id="documento" class="form-control" formControlName="documentos" *ngIf="documentos.length > 0">
+      <option value="">Seleccione un documento</option>
+      <option *ngFor="let documento of documentos" [value]="documento._id">{{ documento.tipo_documento }}</option>
+    </select>
+
+    <div *ngIf="documentos.length === 0">
+      <p>No hay documentos disponibles</p>
+    </div>
+
+    <div *ngIf="form.controls['documentos'].hasError('required') && form.controls['documentos'].touched" class="text-danger">
+      Seleccionar un documento es obligatorio.
+    </div>
+
+    <button type="submit" mat-button [disabled]="form.invalid">Registrar Curso</button>
+  </form>
+</div>

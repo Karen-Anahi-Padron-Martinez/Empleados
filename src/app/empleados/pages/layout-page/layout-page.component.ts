@@ -3,13 +3,18 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-layout-page',
   templateUrl: './layout-page.component.html',
-  styles: ``
+  styleUrls: ['./layout-page.component.css']
 })
 export class LayoutPageComponent {
+  isMenuOpen = false;
 
-  public sidebarItems = [
-    {label:'Listado',icon:'label',url:'./list'},
-    {label:'Añadir',icon:'add',url:'./new-empleado'},
-    
-  ]
+  sidebarItems = [
+    { label: 'Empleados', url: '/empleados', icon: 'group' },
+  ];
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  
 }

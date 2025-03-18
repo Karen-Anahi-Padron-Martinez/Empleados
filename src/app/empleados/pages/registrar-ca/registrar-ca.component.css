@@ -1,0 +1,69 @@
+.container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+.form-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #114c5f; /* Verde oscuro */
+  margin-bottom: 20px;
+}
+.form-titl {
+
+  font-size: 24px;
+  font-weight: bold;
+  color: #114c5f; /* Verde oscuro */
+  margin-bottom: 20px;
+}
+
+.selection button {
+  margin-right: 10px;
+}
+
+.course-form, .activity-form {
+  margin-top: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+form input, form select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.user-registration {
+  margin-top: 20px;
+}
+
+.user-registration input {
+  width: 80%;
+  padding: 8px;
+}
+
+.user-registration button {
+  margin-left: 10px;
+}
+
+ul {
+  margin-top: 10px;
+}
+
+ul li {
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.reset {
+  margin-top: 20px;
+}

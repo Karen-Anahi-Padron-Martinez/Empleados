@@ -41,6 +41,7 @@ export class EmpleadoService {
     return this.http.get<any[]>(`${this.apiUrl}/role3`);
   }
 
+
 }
 
 
