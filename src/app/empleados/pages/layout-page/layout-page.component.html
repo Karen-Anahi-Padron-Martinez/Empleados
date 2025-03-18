@@ -1,34 +1,29 @@
-<mat-sidenav-container fullscreen>
-    <mat-sidenav #sidenav mode="push" [ngStyle]="{width: '250px'}">
-      <mat-toolbar color="warn">
-        <span>Menu</span>
-        <span class="spacer"></span>
-        <button mat-icon-button (click)="sidenav.toggle()">
-          <mat-icon>menu</mat-icon>
-        </button>
-      </mat-toolbar>
-  
-      <mat-nav-list>
-        <mat-list-item *ngFor="let item of sidebarItems" [routerLink]="item.url" (click)="sidenav.toggle()">
-          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
-          {{ item.label }}
-        </mat-list-item>
-      </mat-nav-list>
-    </mat-sidenav>
-  
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span class="spacer"></span>
-      <button mat-button>
-        Logout
-      </button>
-    </mat-toolbar>
-  
-    <div class="container">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-container>
-  
+<!-- Barra de navegación -->
+<nav class="navbar">
+  <div class="logo">Mi Espacio</div>
+    <ul class="nav-links">
+      <li><a routerLink="./edit">Registrar Curso</a></li>
+    <li><a routerLink="./list">Cursos</a></li>
+    <li><a routerLink="./:id">Perfil</a></li>
+    <li><a routerLink="/">Cerrar Sesión</a></li>
+
+
+  </ul>
+</nav>
+
+<!-- Menú lateral (Opcional) -->
+<nav *ngIf="isMenuOpen" class="sidebar">
+  <ul>
+    <li *ngFor="let item of sidebarItems">
+      <a [routerLink]="item.url" (click)="toggleMenu()">
+        <mat-icon>{{ item.icon }}</mat-icon> {{ item.label }}
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Contenedor principal -->
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
 

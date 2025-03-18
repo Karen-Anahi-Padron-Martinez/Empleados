@@ -1,0 +1,63 @@
+<div class="container">
+  <h2 class="form-title">Registrar Curso o Actividad</h2>
+
+  <div class="selection">
+    <button mat-button (click)="selectOption('course')">Registrar Curso</button>
+    <button mat-button (click)="selectOption('activity')">Registrar Actividad</button>
+  </div>
+
+  <!-- Formulario de Registro de Curso -->
+  <div *ngIf="selectedOption === 'course'" class="course-form">
+    <h3 class="form-title">Formulario de Curso</h3>
+    <form [formGroup]="form" (ngSubmit)="registrarCurso()">
+      <label for="courseName">Nombre del Curso:</label>
+      <input type="text" id="courseName" formControlName="nombreCurso" required>
+
+      <label for="startDate">Fecha de Inicio:</label>
+      <input type="date" id="startDate" formControlName="fechaInicio" required>
+
+      <label for="endDate">Fecha de Término:</label>
+      <input type="date" id="endDate" formControlName="fechaTermino" required>
+
+      <label for="documento">Documento:</label>
+      <select id="documento" class="form-control" formControlName="documentos" *ngIf="documentos.length > 0">
+        <option value="">Seleccione un documento</option>
+        <option *ngFor="let documento of documentos" [value]="documento._id">{{ documento.tipo_documento }}</option>
+      </select>
+
+      <div *ngIf="documentos.length === 0">
+        <p>No hay documentos disponibles</p>
+      </div>
+
+      <button type="submit" mat-button>Registrar Curso</button>
+    </form>
+  </div>
+
+  <!-- Formulario de Registro de Actividad -->
+  <div *ngIf="selectedOption === 'activity'" class="activity-form">
+    <h3 class="form-title">Formulario de Actividad</h3>
+    <form [formGroup]="formActividad" (ngSubmit)="registrarParticipacion()">
+      <label for="actividad">Actividad:</label>
+      <select id="actividad" class="form-control" formControlName="nombreActividad" required>
+        <option value="">Seleccione una actividad</option>
+        <option *ngFor="let actividad of actividades" [value]="actividad.nombre_actividad">{{ actividad.nombre_actividad }}</option>
+      </select>
+
+      <div *ngIf="formActividad.controls['nombreActividad'].hasError('required') && formActividad.controls['nombreActividad'].touched" class="text-danger">
+        Seleccionar una actividad es obligatorio.
+      </div>
+
+      <label for="participationStatus">Estatus de Participación:</label>
+      <select id="participationStatus" class="form-control" formControlName="estatus">
+        <option value="1">Participó</option>
+        <option value="0">No Participó</option>
+      </select>
+
+      <button type="submit" mat-button [disabled]="formActividad.invalid">Registrar Participación</button>
+    </form>
+
+    <div class="reset">
+      <button mat-button (click)="resetForm()">Resetear</button>
+    </div>
+  </div>
+</div>

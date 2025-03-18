@@ -29,13 +29,13 @@
   <p>No hay documentos disponibles</p>
 </div>
 </form>
-  
+
     <h4 class="form-titl">Usuarios Registrados en el Curso</h4>
     <div *ngFor="let empleado of empleados">
       <input type="checkbox" [value]="empleado.clave_empleado" (change)="toggleEmpleado(empleado.clave_empleado)">
       {{ empleado.nombre }} ({{ empleado.clave_empleado }})
     </div>
-  
+
     <button (click)="registrarCurso()">Registrar Curso</button>
   </div>
 
@@ -59,22 +59,22 @@
 </select>
 
 
-    
+
       <h4 class="form-titl">Empleados Registrados:</h4>
       <div *ngFor="let empleado of empleados">
         <input type="checkbox" [value]="empleado.clave_empleado" (change)="toggleEmpleado(empleado.clave_empleado)">
         {{ empleado.nombre }} ({{ empleado.clave_empleado }})
       </div>
-    
+
       <button type="submit" [disabled]="empleadosSeleccionados.length === 0">Registrar Participación</button>
     </form>
-          
-      
+
+
         <div class="reset">
           <button mat-button (click)="resetForm()">Resetear</button>
         </div>
       </div>
-      
+
 
 <!-- Formulario para Registrar Curso
 <h3>Registrar Curso</h3>
@@ -101,7 +101,7 @@
 <button type="submit" [disabled]="formCurso.invalid">Registrar Curso</button>
 </form>
 
-<!-- Formulario para Registrar Participación 
+<!-- Formulario para Registrar Participación
 <h3>Registrar Participación</h3>
 <form [formGroup]="formParticipacion" (ngSubmit)="registrarParticipacion()">
 <label for="actividad">Actividad:</label>

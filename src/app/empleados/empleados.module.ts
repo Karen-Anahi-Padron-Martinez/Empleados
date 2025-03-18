@@ -8,6 +8,8 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { NewPageComponent } from './pages/new-page/new-page.component';
 import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
+import { RegistracpComponent } from './pages/registracp/registracp.component';
+import { RegistrarCAComponent } from './pages/registrar-ca/registrar-ca.component';
 
 
 @NgModule({
@@ -15,13 +17,15 @@ import { RouterModule } from '@angular/router';
     EmpleadoPageComponent,
     ListPageComponent,
     LayoutPageComponent,
-    NewPageComponent
+    NewPageComponent,
+    RegistracpComponent,
+    RegistrarCAComponent
   ],
   imports: [
     CommonModule,
     EmpleadosRoutingModule,
     MaterialModule,
-    RouterModule 
+    RouterModule
   ]
 })
 export class EmpleadosModule { }
