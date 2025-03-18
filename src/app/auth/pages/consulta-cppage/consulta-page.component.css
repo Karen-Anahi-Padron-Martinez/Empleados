@@ -1,0 +1,86 @@
+/* Contenedor general para el componente */
+div {
+    margin: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+  }
+  
+  /* Estilos para los botones de cambio de opción */
+  button {
+    margin: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #114c5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Hover effect para los botones */
+  button:hover {
+    background-color: #114c5f;
+  }
+  
+  /* Estilo para el encabezado principal */
+  h3 {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  /* Estilo para los subencabezados (empleado) */
+  h4 {
+    font-size: 20px;
+    color: #555;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  
+  /* Listas de cursos o participaciones */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  /* Estilo para cada elemento de la lista (curso o actividad) */
+  li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    padding: 8px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  /* Hover effect para los elementos de la lista */
+  li:hover {
+    background-color: #d6d8db;
+  }
+  
+  /* Estilos para la visualización de las fechas (para los cursos) */
+  span {
+    color: #333;
+  }
+  
+  /* Estilo para mostrar fechas de curso de manera legible */
+  span {
+    font-size: 14px;
+  }
+  
+  /* Estilo para las fechas con formato */
+  span:before {
+    content: "Fecha: ";
+    font-weight: bold;
+  }
+  
+  /* Estilos para las participaciones */
+  li span {
+    color: #114c5f;
+    font-weight: bold;
+  }
+  
