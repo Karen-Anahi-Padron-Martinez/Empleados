@@ -3,6 +3,7 @@ import { CursoService } from '../../../services/curso.service';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../../../services/data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ParticipacionService } from '../../../services/participacion.service';
 
 @Component({
   selector: 'app-registracp-page',
@@ -11,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegistracpPageComponent implements OnInit {
   form: FormGroup;
+  formActividad: FormGroup;
   selectedOption: string = ''; 
   usersInCourse: string[] = []; 
   usersInActivity: string[] = []; 
@@ -20,8 +22,10 @@ export class RegistracpPageComponent implements OnInit {
   fechaInicio: string = '';
   fechaTermino: string = '';
   documento: string = '';
-  documentos: any[] = []; // Asumí que falta esta propiedad
-
+  documentos: any[] = [];
+  actividades: any[]=[];
+  nombreActividad:string='';
+  estatus:string='';
   // Function to toggle form based on the selected option
   selectOption(option: string) {
     this.selectedOption = option;
@@ -43,14 +47,19 @@ export class RegistracpPageComponent implements OnInit {
     this.usersInActivity = [];
   }
 
-  constructor(private fb: FormBuilder,private cursoService: CursoService, private dataService: DataService, private http: HttpClient) {
+  constructor(private fb: FormBuilder,private cursoService: CursoService,private participacionService:ParticipacionService, private dataService: DataService, private http: HttpClient) {
      // Crear el formulario reactivo
      this.form = this.fb.group({
       nombreCurso: ['', Validators.required],  // Campo para el nombre del curso
       fechaInicio: ['', Validators.required],  // Campo para la fecha de inicio
       fechaTermino: ['', Validators.required],  // Campo para la fecha de término
-      documentos: ['', Validators.required]  // Campo para seleccionar el documento
+      documentos: ['', Validators.required], // Campo para seleccionar el documento
     });
+
+    this.formActividad= this.fb.group({
+      nombreActividad:['',Validators.required],
+      estatus:['',Validators.required]
+    })
   }
 
   ngOnInit() {
@@ -59,6 +68,10 @@ export class RegistracpPageComponent implements OnInit {
       console.log('Documentos recibidos:', data);
       this.documentos = data;
     });// Asumiendo que esta función obtiene los documentos
+    this.dataService.getActividades().subscribe(data => {
+      console.log('Actividades recibidos:', data);
+      this.actividades = data;
+    });
   }
 
   cargarEmpleados() {
@@ -99,4 +112,35 @@ export class RegistracpPageComponent implements OnInit {
     }
     console.log('📌 Empleados seleccionados:', this.empleadosSeleccionados);
   }
+
+
+
+  registrarParticipacion() {
+    const datos = this.formActividad.value;
+  console.log("Enviando datos:", datos);
+
+    if (this.empleadosSeleccionados.length === 0) {
+      alert('Debes seleccionar al menos un empleado.');
+      return;
+    }
+
+    const actividadData = {
+      clave_empleado: [...this.empleadosSeleccionados],
+      nombre_actividad: datos.nombreActividad,
+      estatus: datos.estatus,
+    };
+
+    this.participacionService.registrarParticipaciones(actividadData).subscribe(response => {
+      console.log('Respuesta del servidor:', response);
+      alert('Actividades registrados exitosamente');
+    }, error => {
+      console.error('Error:', error);
+      alert('Hubo un problema al registrar las Participaciones');
+    });
+    console.log('📌 Enviando datos:', actividadData);
+  }
+
+  
 }
+
+
