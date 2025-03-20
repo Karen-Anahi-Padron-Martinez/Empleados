@@ -16,6 +16,8 @@ export class EmpleadoPageComponent  implements OnInit {
   nuevoTelefono: string = '';
   nuevoCorreo: string = '';
   selectedFile: File | null = null;
+  editarFoto: boolean | undefined;
+
 
   constructor(private dataService: DataService) {}
 
@@ -36,7 +38,7 @@ export class EmpleadoPageComponent  implements OnInit {
         this.empleado = data;  // Ensure empleado is assigned
         // Check if foto is undefined and assign a default if missing
         if (this.empleado && !this.empleado.foto) {
-          this.empleado.foto = './assets/img.png';  // Default photo if not available
+          this.empleado.foto = 'https://cdn-icons-png.flaticon.com/512/3106/3106921.png'; // Default photo if not available
         }
       },
       (error) => {
@@ -182,8 +184,9 @@ export class EmpleadoPageComponent  implements OnInit {
 
     this.dataService.actualizarFoto(this.empleado._id, { foto: this.empleado.foto }).subscribe(
       (response) => {
-        this.empleado.foto = response.empleado.foto;  // Actualizamos la foto en la interfaz
+        this.empleado.foto = response.empleado.foto;
         alert('Foto actualizada correctamente');
+        this.editarFoto = false; // Cerrar el campo de texto después de actualizar la foto
       },
       (error) => {
         console.error('Error al actualizar foto', error);

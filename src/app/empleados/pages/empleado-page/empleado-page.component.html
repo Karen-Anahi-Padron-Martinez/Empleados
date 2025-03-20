@@ -1,82 +1,82 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil del Empleado</title>
-    <link rel="stylesheet" href="./empleado-page.component.css">
-</head>
-<body>
-  <div class="container">
-    <!-- Asegúrate de que 'empleado' existe antes de mostrar el contenido -->
-    <div *ngIf="empleado">
-      <h1>{{empleado?.nombre}} {{empleado?.apellido_paterno}} {{empleado?.apellido_materno}}</h1>
+<div class="container">
+  <h1>Datos del Empleado</h1>
 
-      <!-- Foto de Perfil -->
-      <div class="row">
-        <div class="field">
-          <span>Foto:</span>
-          <!-- Mostrar la foto de perfil o la foto por defecto -->
-          <img [src]="empleado?.foto || './assets/img.png'" alt="Foto del Empleado" class="profile-img" id="profile-pic">
-          <!-- Campo para ingresar el link de la imagen -->
-          <input type="text" [(ngModel)]="empleado.foto" placeholder="Ingresa el link de la imagen" />
-          <button (click)="actualizarFoto()">Actualizar Foto</button>
-        </div>
-      </div>
+  <div class="foto" *ngIf="empleado">
+    <img [src]="empleado.foto" alt="Foto de perfil" class="foto-perfil">
 
-      <!-- Información del empleado -->
-      <div class="info">
-        <div class="row">
-          <div class="field"><span>Clave de empleado:</span> {{empleado?.clave_empleado}}</div>
-          <div class="field"><span>RFC:</span> {{empleado?.rfc}}</div>
-        </div>
-        <div class="row">
-          <div class="field"><span>Fecha de Nacimiento:</span> {{empleado?.fecha_nacimiento | date: 'dd/MM/yyyy'}}</div>
-          <div class="field"><span>Sexo:</span> {{empleado?.sexo}}</div>
-        </div>
-        <div class="row">
-          <div class="field"><span>Departamento:</span> {{empleado?.departamento}}</div>
-        </div>
-      </div>
+    <!-- Condicional para mostrar el input solo cuando se haga clic en el botón Cambiar -->
+    <div *ngIf="editarFoto">
+      <label for="fotoUrl">URL de la Foto:</label>
+      <input type="text" [(ngModel)]="empleado.foto" id="fotoUrl" placeholder="Ingresa la URL de la foto">
+      <button (click)="actualizarFoto()">Actualizar Foto</button>
+    </div>
 
-      <!-- Teléfonos -->
-      <div class="telefonos">
-        <h3>Teléfonos</h3>
-        <ul>
-          <li *ngFor="let telefono of empleado.telefonos">
-            <span *ngIf="telefono !== telefonoAActualizar">{{ telefono }}</span>
-            <input *ngIf="telefono === telefonoAActualizar" type="text" [(ngModel)]="telefonoEditado" />
-            <button *ngIf="telefono !== telefonoAActualizar" (click)="iniciarEdicionTelefono(telefono)">Editar</button>
-            <button *ngIf="telefono === telefonoAActualizar" (click)="actualizarTelefono()">Actualizar</button>
-            <button *ngIf="telefono !== telefonoAActualizar" (click)="eliminarTelefono(telefono)">Eliminar</button>
-          </li>
-        </ul>
-        <!-- Agregar un teléfono -->
-        <div class="agregar-telefono">
-          <input type="text" [(ngModel)]="nuevoTelefono" placeholder="Nuevo Teléfono" />
-          <button (click)="agregarTelefono()">Agregar Teléfono</button>
-        </div>
-      </div>
+    <!-- Mostrar el botón Cambiar -->
+    <button *ngIf="!editarFoto" (click)="editarFoto = true">Actualizar</button>
+  </div>
 
-      <!-- Correos -->
-      <div class="correos">
-        <h3>Correos</h3>
-        <ul>
-          <li *ngFor="let correo of empleado.correos">
-            <span *ngIf="correo !== correoAActualizar">{{ correo }}</span>
-            <input *ngIf="correo === correoAActualizar" type="email" [(ngModel)]="correoEditado" />
-            <button *ngIf="correo !== correoAActualizar" (click)="iniciarEdicionCorreo(correo)">Editar</button>
-            <button *ngIf="correo === correoAActualizar" (click)="actualizarCorreo()">Actualizar</button>
-            <button *ngIf="correo !== correoAActualizar" (click)="eliminarCorreo(correo)">Eliminar</button>
-          </li>
-        </ul>
-        <!-- Agregar un correo -->
-        <div class="agregar-correo">
-          <input type="email" [(ngModel)]="nuevoCorreo" placeholder="Nuevo Correo" />
-          <button (click)="agregarCorreo()">Agregar Correo</button>
-        </div>
+
+
+
+  <h3>Información Personal</h3>
+  <div class="row">
+    <div class="field">
+      <label class="label">Nombre Completo:</label>
+      <div class="value">
+        {{ empleado?.nombre + ' ' + empleado?.apellido_paterno + ' ' + empleado?.apellido_materno }}
       </div>
     </div>
+
+    <div class="field">
+      <label class="label">Clave Empleado:</label>
+      <div class="value">{{ empleado?.clave_empleado }}</div>
+    </div>
   </div>
-</body>
-</html>
+
+  <div class="row">
+    <div class="field">
+      <label class="label">RFC:</label>
+      <div class="value">{{ empleado?.rfc }}</div>
+    </div>
+    <div class="field">
+      <label class="label">Sexo:</label>
+      <div class="value">{{ empleado?.sexo }}</div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Fecha Nacimiento:</label>
+    <div class="value">{{ empleado?.fecha_nacimiento | date: 'dd-MM-yyyy' }}</div>
+  </div>
+
+  <h3>Datos de Contacto</h3>
+  <div class="telefonos">
+    <h4>Teléfonos</h4>
+    <ul>
+      <li *ngFor="let telefono of empleado?.telefonos">
+        <span *ngIf="telefono !== telefonoAActualizar">{{ telefono }}</span>
+        <input *ngIf="telefono === telefonoAActualizar" [(ngModel)]="telefonoEditado" type="text">
+        <button (click)="iniciarEdicionTelefono(telefono)">Editar</button>
+        <button *ngIf="telefono === telefonoAActualizar" (click)="actualizarTelefono()">Actualizar</button>
+        <button (click)="eliminarTelefono(telefono)">Eliminar</button>
+      </li>
+    </ul>
+    <input type="text" [(ngModel)]="nuevoTelefono" placeholder="Nuevo teléfono">
+    <button (click)="agregarTelefono()">Agregar</button>
+  </div>
+
+  <div class="correos">
+    <h4>Correos</h4>
+    <ul>
+      <li *ngFor="let correo of empleado?.correos">
+        <span *ngIf="correo !== correoAActualizar">{{ correo }}</span>
+        <input *ngIf="correo === correoAActualizar" [(ngModel)]="correoEditado" type="email">
+        <button (click)="iniciarEdicionCorreo(correo)">Editar</button>
+        <button *ngIf="correo === correoAActualizar" (click)="actualizarCorreo()">Actualizar</button>
+        <button (click)="eliminarCorreo(correo)">Eliminar</button>
+      </li>
+    </ul>
+    <input type="email" [(ngModel)]="nuevoCorreo" placeholder="Nuevo correo">
+    <button (click)="agregarCorreo()">Agregar</button>
+  </div>
+</div>
