@@ -1,0 +1,103 @@
+.container {
+  padding: 20px;
+  margin: 40px auto;
+  max-width: 1200px;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 80px;
+  color: #333;
+  text-align: left;
+  background-color: #f4f4f4;
+  border-left: 4px solid #007bff;
+}
+
+h3 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #333;
+  text-align: left;
+  background-color: #f4f4f4;
+  border-left: 4px solid #007bff;
+}
+
+.form-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.filters-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin-right: 15px;
+  width: 250px;
+}
+
+.filter input {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.search-icon {
+  margin-left: 10px;
+  color: #999;
+}
+
+.courses-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin: 20px auto;
+  padding: 0 80px;
+}
+
+.course-card, .participacion-card {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card h3, .participacion-card h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.course-card p, .participacion-card p {
+  margin: 5px 0;
+}
+
+.course-card:hover, .participacion-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 15px rgba(0, 0, 255, 0.5);
+}
+
+ng-template {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+}

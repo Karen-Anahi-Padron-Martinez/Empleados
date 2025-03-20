@@ -1,1 +1,45 @@
-<p>list-page works!</p>
+<div class="container">
+  <h2 class="form-title">Busqueda Cursos y Participaciones</h2>
+
+  <div class="filters-container">
+    <div class="filter">
+      <input type="text" [(ngModel)]="searchText" placeholder="Buscar actividad o curso..." aria-label="Buscar actividad o curso">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+    </div>
+
+    <div class="filter">
+      <label for="startDate">Fecha de Inicio:</label>
+      <input type="date" [(ngModel)]="startDate" (ngModelChange)="filterCursos()" aria-label="Filtrar por fecha de inicio">
+    </div>
+
+    <div class="filter">
+      <label for="endDate">Fecha de Fin:</label>
+      <input type="date" [(ngModel)]="endDate" (ngModelChange)="filterCursos()" aria-label="Filtrar por fecha de fin">
+    </div>
+  </div>
+
+  <h3>Cursos del Empleado</h3>
+  <main class="courses-container" *ngIf="filteredCursos.length > 0; else sinCursos">
+    <div *ngFor="let curso of filteredCursos" class="course-card">
+      <h3>{{ curso.nombre_curso }}</h3>
+      <p>Inicio: {{ curso.fecha_inicio | date:'longDate' }}</p>
+      <p>Fin: {{ curso.fecha_termino | date:'longDate' }}</p>
+      <a [href]="curso.documento" target="_blank">Ver Documento</a>
+    </div>
+  </main>
+
+  <ng-template #sinCursos>
+    <p>No hay cursos disponibles.</p>
+  </ng-template>
+
+  <h3>Participaciones del Empleado</h3>
+  <main class="participaciones-container" *ngIf="filteredParticipaciones.length > 0; else sinParticipaciones">
+    <div *ngFor="let participacion of filteredParticipaciones" class="participacion-card">
+      <h3>{{ participacion.nombre_actividad }}</h3>
+    </div>
+  </main>
+
+  <ng-template #sinParticipaciones>
+    <p>No hay participaciones disponibles.</p>
+  </ng-template>
+</div>

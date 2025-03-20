@@ -1,1 +1,82 @@
-<p>empleado-page works!</p>
+<div class="container">
+  <h1>Datos del Empleado</h1>
+
+  <div class="foto" *ngIf="empleado">
+    <img [src]="empleado.foto" alt="Foto de perfil" class="foto-perfil">
+
+    <!-- Condicional para mostrar el input solo cuando se haga clic en el botón Cambiar -->
+    <div *ngIf="editarFoto">
+      <label for="fotoUrl">URL de la Foto:</label>
+      <input type="text" [(ngModel)]="empleado.foto" id="fotoUrl" placeholder="Ingresa la URL de la foto">
+      <button (click)="actualizarFoto()">Actualizar Foto</button>
+    </div>
+
+    <!-- Mostrar el botón Cambiar -->
+    <button *ngIf="!editarFoto" (click)="editarFoto = true">Actualizar</button>
+  </div>
+
+
+
+
+  <h3>Información Personal</h3>
+  <div class="row">
+    <div class="field">
+      <label class="label">Nombre Completo:</label>
+      <div class="value">
+        {{ empleado?.nombre + ' ' + empleado?.apellido_paterno + ' ' + empleado?.apellido_materno }}
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Clave Empleado:</label>
+      <div class="value">{{ empleado?.clave_empleado }}</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <label class="label">RFC:</label>
+      <div class="value">{{ empleado?.rfc }}</div>
+    </div>
+    <div class="field">
+      <label class="label">Sexo:</label>
+      <div class="value">{{ empleado?.sexo }}</div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Fecha Nacimiento:</label>
+    <div class="value">{{ empleado?.fecha_nacimiento | date: 'dd-MM-yyyy' }}</div>
+  </div>
+
+  <h3>Datos de Contacto</h3>
+  <div class="telefonos">
+    <h4>Teléfonos</h4>
+    <ul>
+      <li *ngFor="let telefono of empleado?.telefonos">
+        <span *ngIf="telefono !== telefonoAActualizar">{{ telefono }}</span>
+        <input *ngIf="telefono === telefonoAActualizar" [(ngModel)]="telefonoEditado" type="text">
+        <button (click)="iniciarEdicionTelefono(telefono)">Editar</button>
+        <button *ngIf="telefono === telefonoAActualizar" (click)="actualizarTelefono()">Actualizar</button>
+        <button (click)="eliminarTelefono(telefono)">Eliminar</button>
+      </li>
+    </ul>
+    <input type="text" [(ngModel)]="nuevoTelefono" placeholder="Nuevo teléfono">
+    <button (click)="agregarTelefono()">Agregar</button>
+  </div>
+
+  <div class="correos">
+    <h4>Correos</h4>
+    <ul>
+      <li *ngFor="let correo of empleado?.correos">
+        <span *ngIf="correo !== correoAActualizar">{{ correo }}</span>
+        <input *ngIf="correo === correoAActualizar" [(ngModel)]="correoEditado" type="email">
+        <button (click)="iniciarEdicionCorreo(correo)">Editar</button>
+        <button *ngIf="correo === correoAActualizar" (click)="actualizarCorreo()">Actualizar</button>
+        <button (click)="eliminarCorreo(correo)">Eliminar</button>
+      </li>
+    </ul>
+    <input type="email" [(ngModel)]="nuevoCorreo" placeholder="Nuevo correo">
+    <button (click)="agregarCorreo()">Agregar</button>
+  </div>
+</div>

@@ -33,7 +33,12 @@ export class LoginPageComponent {
       next: (response) => {
         // Si el login es exitoso, guarda el token
         this.authService.saveToken(response.token);
-        
+
+        // Guardar la información del usuario en localStorage
+        localStorage.setItem('empleado_id', response.usuario.id);
+        localStorage.setItem('usuario_nombre', response.usuario.nombre);
+
+
         // Verificar el rol del usuario y redirigir a la ruta correspondiente
         switch (response.usuario.rol) {
           case 1:
