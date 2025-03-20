@@ -31,6 +31,7 @@ export class BajaempleadosPageComponent implements OnInit {
   darAlta(id: string): void {
     this.empleadoService.updatRol(id).subscribe(response => {
       console.log('Alta realizada:', response);
+      alert('Alta realizada');
       // Actualizar la lista de usuarios para reflejar el cambio
       this.cargarUsuarios(); // Recargar los datos
     }, (error) => {
@@ -42,6 +43,7 @@ export class BajaempleadosPageComponent implements OnInit {
   bajaDefinitiva(id: string): void {
     this.empleadoService.deleteEmpleado(id).subscribe(response => {
       console.log('Usuario eliminado:', response);
+      alert("Empleado eliminado")
       // Eliminar el usuario de la lista localmente
       this.users = this.users.filter(user => user._id !== id);  // Filtramos el usuario eliminado
     }, (error) => {

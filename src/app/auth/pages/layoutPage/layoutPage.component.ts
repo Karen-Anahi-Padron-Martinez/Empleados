@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-layout-page',
@@ -12,8 +13,14 @@ export class LayoutPageComponent {
     {label:'Registro Empleados',icon:'add',url:'./new-account'},
     {label:'Empleados Registrados',icon:'how_to_reg',url:'./ver-empleado'},
     {label: 'Registrar Curso-Participación', icon:'app_registration',url:'./registrarcp'},
-    {label:'Consultar',icon:'search',url:'./consultar'},
+    {label:'Ver Cursos-Actividades',icon:'search',url:'./consultar'},
     {label:'Empleados Baja',icon:'restart_alt',url:'./baja'}
     
   ]
+
+  constructor(private authService: AuthService) {}
+  
+  onLogout() {
+    this.authService.logout();  // Llamamos al servicio de logout
+  }
 }

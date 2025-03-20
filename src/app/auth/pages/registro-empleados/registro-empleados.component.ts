@@ -162,7 +162,7 @@ export class RegistroEmpleadoComponent implements OnInit {
       this.empleadoService.registrarEmpleado(this.empleadoForm.value).subscribe(
         response => {
           console.log('Empleado registrado:', response);
-          this.router.navigate(['/empleados']);
+          alert("Usuario Registrado con Exito!!!")
         },
         error => {
           console.error('Error al registrar empleado:', error);

@@ -67,4 +67,14 @@
   .reset {
     margin-top: 20px;
   }
-  
+  .lola{
+    margin: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #114c5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }

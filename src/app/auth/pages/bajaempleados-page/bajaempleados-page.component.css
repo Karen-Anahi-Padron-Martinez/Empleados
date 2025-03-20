@@ -53,7 +53,7 @@
     border: none;
     background: none;
     padding: 0;
-    margin-left: 10px;
+    margin-left: 100px;
   }
   
   button.mat-icon-button {
@@ -124,8 +124,9 @@
   
   /* Estilo del texto junto al icono */
   .button-text {
-    font-size: 1rem; /* Tamaño de fuente del texto */
-    white-space: nowrap; /* Asegura que el texto no se divida en varias líneas */
+    font-size: 24px;
+    font-weight: bold;
+    color: #114c5f;/* Asegura que el texto no se divida en varias líneas */
   }
   
   /* Cambiar tamaño del icono */

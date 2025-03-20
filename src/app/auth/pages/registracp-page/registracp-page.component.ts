@@ -134,7 +134,7 @@ export class RegistracpPageComponent implements OnInit {
 
     this.participacionService.registrarParticipaciones(actividadData).subscribe(response => {
       console.log('Respuesta del servidor:', response);
-      alert('Actividades registrados exitosamente');
+      alert('Participaciones registradas exitosamente');
     }, error => {
       console.error('Error:', error);
       alert('Hubo un problema al registrar las Participaciones');

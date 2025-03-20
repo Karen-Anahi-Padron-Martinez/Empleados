@@ -64,6 +64,7 @@ export class VerempleadosPageComponent implements OnInit {
   bajaTemporal(id: string): void {
     this.empleadoService.updateRol(id).subscribe(response => {
       console.log('Baja temporal realizada:', response);
+      alert('Baja temporal realizada');
       // Actualizar la lista de usuarios para reflejar el cambio
       this.ngOnInit(); // Recargar los datos
     });
@@ -73,6 +74,7 @@ export class VerempleadosPageComponent implements OnInit {
   bajaDefinitiva(id: string): void {
     this.empleadoService.deleteEmpleado(id).subscribe(response => {
       console.log('Usuario eliminado:', response);
+      alert("Empleado eliminado")
       // Eliminar el usuario de la lista localmente
       this.users = this.users.filter(user => user._id !== id);
       this.selectedUser = null; // Limpiar el detalle del usuario seleccionado

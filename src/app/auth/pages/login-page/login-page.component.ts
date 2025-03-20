@@ -46,7 +46,7 @@ export class LoginPageComponent {
             break;
           case 3:
             // Rol 3 (Otro rol): redirigir a una ruta específica
-            this.router.navigate(['/404']);  // Ruta para otro rol
+            this.router.navigate(['/baja']);  // Ruta para otro rol
             break;
           default:
             // Si el rol no es reconocido, redirige a la página principal o muestra un mensaje de error

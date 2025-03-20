@@ -36,7 +36,7 @@
       {{ empleado.nombre }} ({{ empleado.clave_empleado }})
     </div>
   
-    <button (click)="registrarCurso()">Registrar Curso</button>
+    <button class="lola"(click)="registrarCurso()">Registrar Curso</button>
   </div>
 
   <div *ngIf="selectedOption === 'activity'" class="activity-form">
@@ -66,7 +66,7 @@
         {{ empleado.nombre }} ({{ empleado.clave_empleado }})
       </div>
     
-      <button type="submit" [disabled]="empleadosSeleccionados.length === 0">Registrar Participación</button>
+      <button class= "lola"type="submit" [disabled]="empleadosSeleccionados.length === 0">Registrar Participación</button>
     </form>
           
       
