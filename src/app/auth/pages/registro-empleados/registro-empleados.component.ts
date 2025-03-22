@@ -11,7 +11,7 @@ import { ConsecutivoService } from '../../../services/consecutivo.service';
   styleUrls: ['./registro-empleado.component.css']
 })
 export class RegistroEmpleadoComponent implements OnInit {
-  empleadoForm: FormGroup; // Cambio para usar FormGroup y FormArray
+  empleadoForm: FormGroup;
   consecutivo: number = 1;
 
   departamentos: any[] = [];
@@ -66,12 +66,9 @@ export class RegistroEmpleadoComponent implements OnInit {
     this.dataService.getPuestos().subscribe(data => this.puestos = data);
     this.dataService.getCiudades().subscribe(data => this.ciudades = data);
     this.dataService.getParentescos().subscribe(data => this.parentescos = data);
-    this.obtenerConsecutivo(); // Llama al servicio al cargar el formulario
-    
-  
-    /** 🔹 Obtener el consecutivo desde la base de datos */
-   
+    this.obtenerConsecutivo();
   }
+
   obtenerConsecutivo() {
     this.consecutivoService.obtenerUltimoConsecutivo().subscribe(
       (data) => {
@@ -84,7 +81,7 @@ export class RegistroEmpleadoComponent implements OnInit {
     );
   }
 
-  /** Obtener los FormArray */
+  /** Getters para formularios dinámicos */
   get telefonos(): FormArray {
     return this.empleadoForm.get('telefonos') as FormArray;
   }
@@ -93,17 +90,11 @@ export class RegistroEmpleadoComponent implements OnInit {
     return this.empleadoForm.get('correos') as FormArray;
   }
 
-  /** Agregar y eliminar campos dinámicamente */
-  agregarTelefono() {
-    this.telefonos.push(this.fb.control('', Validators.required));
+  get referenciasFamiliares(): FormArray {
+    return this.empleadoForm.get('referencias_familiares') as FormArray;
   }
 
-  eliminarTelefono(index: number) {
-    if (this.telefonos.length > 1) {
-      this.telefonos.removeAt(index);
-    }
-  }
-
+  /** Métodos para correos */
   agregarCorreo() {
     this.correos.push(this.fb.control('', [Validators.required, Validators.email]));
   }
@@ -114,12 +105,18 @@ export class RegistroEmpleadoComponent implements OnInit {
     }
   }
 
-  /** Obtener los FormArray */
-  get referenciasFamiliares(): FormArray {
-    return this.empleadoForm.get('referencias_familiares') as FormArray;
+  /** Métodos para teléfonos */
+  agregarTelefono() {
+    this.telefonos.push(this.fb.control('', Validators.required));
   }
 
-  /** Agregar una nueva referencia familiar */
+  eliminarTelefono(index: number) {
+    if (this.telefonos.length > 1) {
+      this.telefonos.removeAt(index);
+    }
+  }
+
+  /** Métodos para referencias familiares */
   agregarReferenciaFamiliar() {
     this.referenciasFamiliares.push(this.fb.group({
       nombre: ['', Validators.required],
@@ -129,13 +126,13 @@ export class RegistroEmpleadoComponent implements OnInit {
     }));
   }
 
-  /** Eliminar una referencia familiar */
   eliminarReferenciaFamiliar(index: number) {
     if (this.referenciasFamiliares.length > 1) {
       this.referenciasFamiliares.removeAt(index);
     }
   }
 
+  /** Clave de empleado */
   generarClaveEmpleado(): void {
     const nombre = this.empleadoForm.get('nombre')?.value;
     const apellidoPaterno = this.empleadoForm.get('apellido_paterno')?.value;
@@ -155,19 +152,33 @@ export class RegistroEmpleadoComponent implements OnInit {
     }
   }
 
+  /** Registrar empleado con validación y limpieza de correos */
   registrarEmpleado() {
     this.generarClaveEmpleado();
-    
-    if (this.empleadoForm.valid) {
+
+    // Filtrar correos válidos y no vacíos
+    const correosValidos = this.correos.value.filter((c: string) => c && c.trim() !== '');
+
+    // Actualizar el campo correos en el FormGroup
+    this.empleadoForm.patchValue({ correos: correosValidos });
+
+    console.log('📨 Correos a guardar:', this.empleadoForm.value.correos);
+    console.log('📦 Datos a enviar:', this.empleadoForm.value);
+
+    if (this.empleadoForm.valid && correosValidos.length > 0) {
       this.empleadoService.registrarEmpleado(this.empleadoForm.value).subscribe(
         response => {
-          console.log('Empleado registrado:', response);
-          alert("Usuario Registrado con Exito!!!")
+          console.log('✅ Empleado registrado:', response);
+          alert("Empleado registrado con éxito");
+          this.router.navigate(['/auth/ver-empleado']); // o ajusta la ruta si es diferente
         },
         error => {
-          console.error('Error al registrar empleado:', error);
+          console.error('❌ Error al registrar empleado:', error);
+          alert("Error al registrar el empleado");
         }
       );
+    } else {
+      alert('Por favor, ingresa al menos un correo válido.');
     }
   }
 }

@@ -22,7 +22,7 @@
       <label for="documento">Documento:</label>
       <select id="documento" class="form-control" formControlName="documentos" *ngIf="documentos.length > 0">
         <option value="">Seleccione un documento</option>
-        <option *ngFor="let documento of documentos" [value]="documento._id">{{ documento.tipo_documento }}</option>
+        <option *ngFor="let documento of documentos" [value]="documento.tipo_documento">{{ documento.tipo_documento }}</option>
       </select>
 
       <div *ngIf="documentos.length === 0">

@@ -21,12 +21,13 @@
   <h3>Cursos del Empleado</h3>
   <main class="courses-container" *ngIf="filteredCursos.length > 0; else sinCursos">
     <div *ngFor="let curso of filteredCursos" class="course-card">
-      <h3>{{ curso.nombre_curso }}</h3>
-      <p>Inicio: {{ curso.fecha_inicio | date:'longDate' }}</p>
-      <p>Fin: {{ curso.fecha_termino | date:'longDate' }}</p>
-      <a [href]="curso.documento" target="_blank">Ver Documento</a>
+      <h3 class="curso-titulo">{{ curso.nombre_curso }}</h3>
+      <p><strong>Inicio:</strong> {{ curso.fecha_inicio | date:'longDate' }}</p>
+      <p><strong>Fin:</strong> {{ curso.fecha_termino | date:'longDate' }}</p>
+      <p><strong>Tipo Documento:</strong> {{ curso.documento }}</p>
     </div>
   </main>
+
 
   <ng-template #sinCursos>
     <p>No hay cursos disponibles.</p>
@@ -36,8 +37,10 @@
   <main class="participaciones-container" *ngIf="filteredParticipaciones.length > 0; else sinParticipaciones">
     <div *ngFor="let participacion of filteredParticipaciones" class="participacion-card">
       <h3>{{ participacion.nombre_actividad }}</h3>
+      <p><strong>Estatus:</strong> {{ participacion.estatus === 1 ? 'Participó' : 'No Participó' }}</p>
     </div>
   </main>
+
 
   <ng-template #sinParticipaciones>
     <p>No hay participaciones disponibles.</p>

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CursoService } from '../../../services/curso.service';
-import { ParticipacionService } from '../../../services/participacion.service';
 import { DataService } from '../../../services/data.service';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
