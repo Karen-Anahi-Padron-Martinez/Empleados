@@ -14,39 +14,56 @@
     <!-- Mostrar el botón Cambiar -->
     <button *ngIf="!editarFoto" (click)="editarFoto = true">Actualizar</button>
   </div>
+  <div class="container">
+    <h3>Información Personal</h3>
+    <div class="info-dos-columnas">
+      <div class="field">
+        <label class="label">Nombre Completo:</label>
+        <div class="value">
+          {{ empleado?.nombre + ' ' + empleado?.apellido_paterno + ' ' + empleado?.apellido_materno }}
+        </div>
+      </div>
 
+      <div class="field">
+        <label class="label">Clave Empleado:</label>
+        <div class="value">{{ empleado?.clave_empleado }}</div>
+      </div>
 
+      <div class="field">
+        <label class="label">RFC:</label>
+        <div class="value">{{ empleado?.rfc }}</div>
+      </div>
 
+      <div class="field">
+        <label class="label">Sexo:</label>
+        <div class="value">{{ empleado?.sexo }}</div>
+      </div>
 
-  <h3>Información Personal</h3>
-  <div class="row">
-    <div class="field">
-      <label class="label">Nombre Completo:</label>
-      <div class="value">
-        {{ empleado?.nombre + ' ' + empleado?.apellido_paterno + ' ' + empleado?.apellido_materno }}
+      <div class="field">
+        <label class="label">Fecha Nacimiento:</label>
+        <div class="value">{{ empleado?.fecha_nacimiento | date: 'dd-MM-yyyy' }}</div>
+      </div>
+
+      <div class="field">
+        <label class="label">Departamento:</label>
+        <div class="value">{{ empleado?.departamento }}</div>
+      </div>
+
+      <div class="field">
+        <label class="label">Puesto:</label>
+        <div class="value">{{ empleado?.puesto }}</div>
       </div>
     </div>
 
-    <div class="field">
-      <label class="label">Clave Empleado:</label>
-      <div class="value">{{ empleado?.clave_empleado }}</div>
+    <h3>Domicilio</h3>
+    <div class="row">
+      <div class="field"><label class="label">Calle:</label> <div class="value">{{ empleado?.domicilio?.calle }}</div></div>
+      <div class="field"><label class="label">Número Interior:</label> <div class="value">{{ empleado?.domicilio?.numero_interior }}</div></div>
+      <div class="field"><label class="label">Número Exterior:</label> <div class="value">{{ empleado?.domicilio?.numero_exterior }}</div></div>
+      <div class="field"><label class="label">Colonia:</label> <div class="value">{{ empleado?.domicilio?.colonia }}</div></div>
+      <div class="field"><label class="label">Código Postal:</label> <div class="value">{{ empleado?.domicilio?.codigo_postal }}</div></div>
+      <div class="field"><label class="label">Ciudad:</label> <div class="value">{{ empleado?.domicilio?.ciudad }}</div></div>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="field">
-      <label class="label">RFC:</label>
-      <div class="value">{{ empleado?.rfc }}</div>
-    </div>
-    <div class="field">
-      <label class="label">Sexo:</label>
-      <div class="value">{{ empleado?.sexo }}</div>
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Fecha Nacimiento:</label>
-    <div class="value">{{ empleado?.fecha_nacimiento | date: 'dd-MM-yyyy' }}</div>
   </div>
 
   <h3>Datos de Contacto</h3>
@@ -79,4 +96,17 @@
     <input type="email" [(ngModel)]="nuevoCorreo" placeholder="Nuevo correo">
     <button (click)="agregarCorreo()">Agregar</button>
   </div>
-</div>
+
+  <div class="container">
+    <!-- ...Información Personal y Domicilio ya existente... -->
+
+    <h3>Referencias Familiares</h3>
+    <div class="info-dos-columnas">
+      <div class="referencia-card" *ngFor="let referencia of empleado?.referencias_familiares">
+        <div><strong>Nombre:</strong> {{ referencia.nombre }}</div>
+        <div><strong>Parentesco:</strong> {{ referencia.parentesco }}</div>
+        <div><strong>Teléfono:</strong> {{ referencia.telefonos[0] }}</div>
+        <div><strong>Correo:</strong> {{ referencia.correo }}</div>
+      </div>
+    </div>
+  </div>

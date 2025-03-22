@@ -50,7 +50,21 @@
         <mat-label>Contraseña</mat-label>
         <input matInput type="password" formControlName="contrasenia" required />
       </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Foto de Perfil (URL)</mat-label>
+        <input matInput type="text" formControlName="foto" placeholder="https://..." />
+      </mat-form-field>
+
+      <!-- Vista previa -->
+      <div class="preview-container" *ngIf="empleadoForm.get('foto')?.value">
+        <img [src]="empleadoForm.get('foto')?.value" alt="Previsualización" class="preview-img">
+      </div>
+
+
     </div>
+
+
 
     <h4 class="form-title">Rol y Cargo</h4>
     <div class="section">
@@ -58,9 +72,10 @@
         <mat-label>Rol</mat-label>
         <mat-select formControlName="rol" required>
           <mat-option value="2">Empleado</mat-option>
-          <mat-option value="1">Admin</mat-option>
+          <mat-option value="1">Recursos Humanos</mat-option>
         </mat-select>
       </mat-form-field>
+
 
       <mat-form-field appearance="outline">
         <mat-label>Departamento</mat-label>

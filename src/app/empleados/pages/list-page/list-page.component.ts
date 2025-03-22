@@ -51,7 +51,7 @@ export class ListPageComponent   implements OnInit {
       },
       (error) => {
         console.error('Error al obtener participaciones:', error);
-        alert(error.error.mensaje || 'Hubo un problema al obtener las participaciones');
+        alert(error.error.mensaje || 'No existe ningun registro de Participación');
       }
     );
   }
