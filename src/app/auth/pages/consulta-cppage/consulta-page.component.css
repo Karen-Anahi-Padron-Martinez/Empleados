@@ -35,12 +35,12 @@ div {
   
   /* Estilo para los subencabezados (empleado) */
   h4 {
-    font-size: 20px;
-    color: #555;
-    margin-top: 15px;
-    margin-bottom: 10px;
+    
+    font-size: 24px;
+    font-weight: bold;
+    color: #114c5f; /* Verde oscuro */
+    margin-bottom: 20px;
   }
-  
   /* Listas de cursos o participaciones */
   ul {
     list-style-type: none;

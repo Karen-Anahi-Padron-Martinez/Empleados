@@ -22,7 +22,7 @@
 <label for="documento">Documento:</label>
 <select id="documento" class="form-control" formControlName="documentos" *ngIf="documentos.length > 0">
   <option value="">Seleccione un documento</option>
-  <option *ngFor="let documento of documentos" [value]="documento._id">{{ documento.tipo_documento }}</option>
+  <option *ngFor="let documento of documentos" [value]="documento.tipo_documento">{{ documento.tipo_documento }}</option>
 </select>
 
 <div *ngIf="documentos.length === 0">
@@ -30,11 +30,16 @@
 </div>
 </form>
 
-    <h4 class="form-titl">Usuarios Registrados en el Curso</h4>
-    <div *ngFor="let empleado of empleados">
-      <input type="checkbox" [value]="empleado.clave_empleado" (change)="toggleEmpleado(empleado.clave_empleado)">
-      {{ empleado.nombre }} ({{ empleado.clave_empleado }})
-    </div>
+<h4 class="form-titl">Empleados Registrados:</h4>
+<div *ngFor="let empleado of empleados">
+  <input 
+    type="checkbox" 
+    [value]="empleado.clave_empleado"
+    (change)="toggleEmpleado(empleado.clave_empleado, empleado.nombre)">
+  {{ empleado.nombre }} ({{ empleado.clave_empleado }})
+</div>
+
+
 
   
     <button class="lola"(click)="registrarCurso()">Registrar Curso</button>
@@ -59,14 +64,16 @@
   <option value="1">Participó</option>
   <option value="0">No Participó</option>
 </select>
+<h4 class="form-titl">Empleados Registrados:</h4>
+<div *ngFor="let empleado of empleados">
+  <input 
+    type="checkbox" 
+    [value]="empleado.clave_empleado"
+    (change)="toggleEmpleado(empleado.clave_empleado, empleado.nombre)">
+  {{ empleado.nombre }} ({{ empleado.clave_empleado }})
+</div>
 
 
-
-      <h4 class="form-titl">Empleados Registrados:</h4>
-      <div *ngFor="let empleado of empleados">
-        <input type="checkbox" [value]="empleado.clave_empleado" (change)="toggleEmpleado(empleado.clave_empleado)">
-        {{ empleado.nombre }} ({{ empleado.clave_empleado }})
-      </div>
       <button class= "lola"type="submit" [disabled]="empleadosSeleccionados.length === 0">Registrar Participación</button>
     </form>
 

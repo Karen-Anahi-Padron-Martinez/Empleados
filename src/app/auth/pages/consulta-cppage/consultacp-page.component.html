@@ -6,8 +6,8 @@
   <div *ngIf="selectedOption === 'curso'">
     <h3>Cursos de los Empleados</h3>
     <div *ngFor="let empleado of empleadosConCursos">
-      <h4>{{ empleado.clave_empleado }}</h4>
-      <h4>{{empleado.nombre_completo}}</h4>
+      <h4>Nombre Empleado: {{empleado.nombre_empleado}}  </h4>
+      <h4>Clave: {{ empleado.clave_empleado }}</h4>
       <ul>
         <li *ngFor="let curso of empleado.cursos">
           <span>{{ curso.nombre_curso }} ({{ curso.fecha_inicio | date }} - {{ curso.fecha_termino | date }})</span>
@@ -19,8 +19,8 @@
   <div *ngIf="selectedOption === 'participacion'">
     <h3>Participaciones de los Empleados</h3>
     <div *ngFor="let empleado of empleadosConParticipaciones">
-      <h4>{{ empleado.clave_empleado }}</h4>
-      <h4>{{empleado.nombre_completo}}</h4>
+      <h4>Nombre Empleado: {{ empleado.nombre_empleado }}</h4>
+      <h4>Clave: {{ empleado.clave_empleado }}</h4>
       <ul>
         <li *ngFor="let participacion of empleado.actividad">
           <span>{{ participacion.nombre_actividad }} - {{ participacion.estatus === '1' ? 'Participó' : 'No Participó' }}</span>

@@ -17,7 +17,7 @@ export class RegistracpPageComponent implements OnInit {
   usersInCourse: string[] = []; 
   usersInActivity: string[] = []; 
   empleados: any[] = [];  // Lista de empleados
-  empleadosSeleccionados: string[] = [];  // Claves de empleados seleccionados
+  empleadosSeleccionados: { clave: string, nombre: string }[] = [];  // Claves de empleados seleccionados
   nombreCurso: string = '';
   fechaInicio: string = '';
   fechaTermino: string = '';
@@ -83,19 +83,28 @@ export class RegistracpPageComponent implements OnInit {
   registrarCurso() {
     const datos = this.form.value;
     console.log("Enviando datos:", datos);
+  
     if (this.empleadosSeleccionados.length === 0) {
       alert('Debes seleccionar al menos un empleado.');
       return;
     }
-
+  
+    // Obtener los empleados seleccionados con nombre y clave
+    const empleadosDatos = this.empleados
+      .filter(e => this.empleadosSeleccionados.includes(e.clave))
+      .map(e => ({
+        clave: e.clave,
+        nombre: e.nombre
+      }));
+  
     const cursoData = {
-      clave_empleado: [...this.empleadosSeleccionados],
+      empleados: [...this.empleadosSeleccionados], // ahora envías objetos con clave y nombre
       nombre_curso: datos.nombreCurso,
       fecha_inicio: datos.fechaInicio,
       fecha_termino: datos.fechaTermino,
-      documento: datos.documento
+      documento: datos.documentos
     };
-
+  
     this.cursoService.registrarCursos(cursoData).subscribe(response => {
       console.log('Respuesta del servidor:', response);
       alert('Cursos registrados exitosamente');
@@ -103,35 +112,48 @@ export class RegistracpPageComponent implements OnInit {
       console.error('Error:', error);
       alert('Hubo un problema al registrar los cursos');
     });
+  
     console.log('📌 Enviando datos:', cursoData);
   }
+  
 
-  toggleEmpleado(clave: string) {
-    if (this.empleadosSeleccionados.includes(clave)) {
-      this.empleadosSeleccionados = this.empleadosSeleccionados.filter(e => e !== clave);
+  toggleEmpleado(clave: string, nombre: string) {
+    const index = this.empleadosSeleccionados.findIndex(emp => emp.clave === clave);
+    if (index > -1) {
+      // Si ya está, lo quitamos
+      this.empleadosSeleccionados.splice(index, 1);
     } else {
-      this.empleadosSeleccionados.push(clave);
+      // Si no está, lo agregamos
+      this.empleadosSeleccionados.push({ clave, nombre });
     }
     console.log('📌 Empleados seleccionados:', this.empleadosSeleccionados);
   }
-
+  
 
 
   registrarParticipacion() {
     const datos = this.formActividad.value;
-  console.log("Enviando datos:", datos);
-
+    console.log("Enviando datos:", datos);
+  
     if (this.empleadosSeleccionados.length === 0) {
       alert('Debes seleccionar al menos un empleado.');
       return;
     }
-
+  
+    // Obtener los empleados seleccionados con nombre y clave
+    const empleadosDatos = this.empleados
+      .filter(e => this.empleadosSeleccionados.includes(e.clave))
+      .map(e => ({
+        clave: e.clave,
+        nombre: e.nombre
+      }));
+  
     const actividadData = {
-      clave_empleado: [...this.empleadosSeleccionados],
+      empleados: [...this.empleadosSeleccionados], // incluir nombre y clave
       nombre_actividad: datos.nombreActividad,
       estatus: datos.estatus,
     };
-
+  
     this.participacionService.registrarParticipaciones(actividadData).subscribe(response => {
       console.log('Respuesta del servidor:', response);
       alert('Participaciones registradas exitosamente');
@@ -139,9 +161,10 @@ export class RegistracpPageComponent implements OnInit {
       console.error('Error:', error);
       alert('Hubo un problema al registrar las Participaciones');
     });
+  
     console.log('📌 Enviando datos:', actividadData);
   }
-
+  
   
 }
 
