@@ -12,7 +12,8 @@ export class VerempleadosPageComponent implements OnInit {
   users: any[] = [];        // Datos de los empleados
   selectedUser: any = null; // Usuario seleccionado
   isEditing: boolean = false;
-  telefonosText: string = ''; 
+  telefonoTexto: string = '';
+  correoTexto: string = '';
 
   constructor(private empleadoService: EmpleadoService) {}
 
@@ -23,32 +24,42 @@ export class VerempleadosPageComponent implements OnInit {
     });
   }
 
-  // Filtrar usuarios por apellido, RFC o clave
  // Filtrar usuarios por apellido, RFC o clave
  get filteredUsers() {
   return this.users.filter(user =>
-    user.apellido_paterno.toLowerCase().includes(this.searchText.toLowerCase()) ||
-    user.apellido_materno.toLowerCase().includes(this.searchText.toLowerCase()) ||
-    user.rfc.toLowerCase().includes(this.searchText.toLowerCase()) ||
-    user.clave_empleado.toLowerCase().includes(this.searchText.toLowerCase())
+    user.rol !== 1 && (
+      user.apellido_paterno?.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      user.apellido_materno?.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      user.rfc?.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      user.clave_empleado?.toLowerCase().includes(this.searchText.toLowerCase())
+    )
   );
 }
 
 
+
   // Seleccionar usuario para mostrar detalles
   selectUser(user: any) {
-    this.selectedUser = user;
-    this.isEditing = false;
-  }
+  if (user.rol === 1) return;
+  this.selectedUser = user;
+  this.isEditing = false;
+}
+
 
   // Activar el modo de edición
-  editarEmpleado() {
-    this.isEditing = true;  // Activar el modo de edición
-  }
+ editarEmpleado() {
+  this.isEditing = true;
+  this.telefonoTexto = this.selectedUser.telefonos?.join(', ') || '';
+  this.correoTexto = this.selectedUser.correos?.join(', ') || '';
+}
+
 
   // Función para actualizar el empleado
   actualizarEmpleado() {
     if (this.selectedUser) {
+
+      this.selectedUser.telefonos = this.telefonoTexto.split(',').map(t => t.trim());
+      this.selectedUser.correos = this.correoTexto.split(',').map(c => c.trim());
       this.empleadoService.actualizarEmpleado(this.selectedUser.clave_empleado, this.selectedUser).subscribe(response => {
         console.log('Empleado actualizado:', response);
         alert('Empleado actualizado correctamente');
@@ -58,7 +69,7 @@ export class VerempleadosPageComponent implements OnInit {
       });
     }
   }
-  
+
 
   // Dar de baja temporal (actualizar rol)
   bajaTemporal(id: string): void {

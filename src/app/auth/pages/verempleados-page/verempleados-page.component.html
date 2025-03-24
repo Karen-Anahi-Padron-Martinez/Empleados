@@ -29,7 +29,7 @@
     <p><strong>Rol:</strong> {{ selectedUser.rol }}</p>
     <p><strong>Departamento:</strong> {{ selectedUser.departamento }}</p>
     <p><strong>Puesto:</strong> {{ selectedUser.puesto }}</p>
-    <p><strong>Correo:</strong> {{ selectedUser.correos[0] }}</p>
+    <p><strong>Correo:</strong> {{ selectedUser.correos.join(', ')}}</p>
     <p><strong>Teléfonos:</strong> {{ selectedUser.telefonos.join(', ') }}</p>
     <p><strong>Fecha de Nacimiento:</strong> {{ selectedUser.fecha_nacimiento | date }}</p>
     <p><strong>Sexo:</strong> {{ selectedUser.sexo }}</p>
@@ -116,15 +116,17 @@
 
       <div class="form-group">
         <label for="telefonos">Teléfonos:</label>
-        <input type="text" [(ngModel)]="telefonosText" name="telefonos" id="telefonos" class="form-control" />
+        <input type="text" [(ngModel)]="telefonoTexto" name="telefonos" id="telefonos" class="form-control" />
         <small>Ingresa los números de teléfono separados por coma</small>
       </div>
 
+
       <div class="form-group">
         <label for="correos">Correos:</label>
-        <input type="email" [(ngModel)]="selectedUser.correos[0]" name="correo" id="correo" class="form-control" />
-        <small>Ingresa el correo principal del usuario</small>
+        <input type="text" [(ngModel)]="correoTexto" name="correos" id="correos" class="form-control" />
+        <small>Ingresa los correos separados por coma</small>
       </div>
+
 
       <button mat-button type="submit" class="btn btn-warning">Actualizar</button>
     </form>

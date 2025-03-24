@@ -37,7 +37,8 @@
   <main class="participaciones-container" *ngIf="filteredParticipaciones.length > 0; else sinParticipaciones">
     <div *ngFor="let participacion of filteredParticipaciones" class="participacion-card">
       <h3>{{ participacion.nombre_actividad }}</h3>
-      <p><strong>Estatus:</strong> {{ participacion.estatus === 1 ? 'Participó' : 'No Participó' }}</p>
+      <p><strong>Estatus:</strong> {{ participacion.estatus === '1' ? 'Participó' : 'No Participó' }}</p>
+
     </div>
   </main>
 
