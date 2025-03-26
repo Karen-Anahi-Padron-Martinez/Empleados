@@ -1,19 +1,120 @@
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-  }
-  
-  .login-card {
-    width: 350px;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .full-width {
-    width: 100%;
-    margin-bottom: 15px;
-  }
-  
+/* Contenedor general */
+:host {
+  display: block;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* División de la pantalla en dos partes */
+.login-wrapper {
+  display: flex;
+  height: 100%;
+}
+
+/* Lado con color (puede ser una imagen de fondo o color sólido) */
+.color-side {
+  flex: 1;
+  background: linear-gradient(135deg, #4f9dc4, #114c5f); /* Fondo degradado moderno */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: relative;
+}
+
+/* Capa de sobreposición */
+.color-side .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Superposición oscura */
+}
+
+.color-side .content {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.color-side h1 {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.color-side p {
+  font-size: 18px;
+}
+
+/* Lado del formulario */
+.form-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f9fa; /* Fondo claro para el formulario */
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 30px;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 26px;
+  color: #114c5f;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+mat-card-content {
+  padding: 20px;
+}
+
+/* Espaciado entre campos */
+mat-form-field {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+/* Asegura que los botones y campos ocupen el 100% */
+.full-width {
+  width: 100%;
+}
+
+button.mat-raised-button {
+  background-color: #114c5f;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 12px;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 16px;
+}
+
+button.mat-raised-button:hover {
+  background-color: #0f3b48; /* Cambio de color al pasar el mouse */
+  transform: scale(1.05); /* Efecto de animación */
+}
+
+/* Estilo para los iconos */
+mat-icon.mat-suffix {
+  cursor: pointer;
+}
+
+/* Estilo de los errores */
+mat-error {
+  color: #f44336; /* Rojo para los errores */
+  font-size: 12px;
+}
