@@ -62,10 +62,6 @@
         <input type="text" [(ngModel)]="selectedUser.apellido_materno" name="apellido_materno" id="apellido_materno" class="form-control" />
       </div>
 
-      <div class="form-group">
-        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-        <input type="date" [(ngModel)]="selectedUser.fecha_nacimiento" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" />
-      </div>
 
       <div class="form-group">
         <label for="rfc">RFC:</label>
@@ -85,7 +81,7 @@
         <label for="rol">Rol</label>
         <select [(ngModel)]="selectedUser.rol" name="rol" id="rol" class="form-control" required>
           <option value="2">Empleado</option>
-          <option value="1">Admin</option>
+          <option value="1">Recursos Humanos</option>
         </select>
       </div>
 
@@ -104,15 +100,6 @@
         <input type="text" [(ngModel)]="selectedUser.domicilio.ciudad" name="ciudad" id="ciudad" class="form-control" placeholder="Ciudad" />
       </div>
 
-      <div class="form-group">
-        <label for="departamento">Departamento:</label>
-        <input type="text" [(ngModel)]="selectedUser.departamento" name="departamento" id="departamento" class="form-control" />
-      </div>
-
-      <div class="form-group">
-        <label for="puesto">Puesto:</label>
-        <input type="text" [(ngModel)]="selectedUser.puesto" name="puesto" id="puesto" class="form-control" />
-      </div>
 
       <div class="form-group">
         <label for="telefonos">Teléfonos:</label>

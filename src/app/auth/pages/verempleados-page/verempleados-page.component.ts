@@ -21,30 +21,27 @@ export class VerempleadosPageComponent implements OnInit {
     // Obtener los empleados desde el servicio
     this.empleadoService.getEmpleados().subscribe(data => {
       this.users = data;
+      this.users = data.filter(user => user.clave_empleado !== 'E12345');
     });
   }
 
+  // Filtrar usuarios por apellido, RFC o clave
  // Filtrar usuarios por apellido, RFC o clave
  get filteredUsers() {
   return this.users.filter(user =>
-    user.rol !== 1 && (
-      user.apellido_paterno?.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      user.apellido_materno?.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      user.rfc?.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      user.clave_empleado?.toLowerCase().includes(this.searchText.toLowerCase())
-    )
+    user.apellido_paterno.toLowerCase().includes(this.searchText.toLowerCase()) ||
+    user.apellido_materno.toLowerCase().includes(this.searchText.toLowerCase()) ||
+    user.rfc.toLowerCase().includes(this.searchText.toLowerCase()) ||
+    user.clave_empleado.toLowerCase().includes(this.searchText.toLowerCase())
   );
 }
 
 
-
   // Seleccionar usuario para mostrar detalles
   selectUser(user: any) {
-  if (user.rol === 1) return;
-  this.selectedUser = user;
-  this.isEditing = false;
-}
-
+    this.selectedUser = user;
+    this.isEditing = false;
+  }
 
   // Activar el modo de edición
  editarEmpleado() {

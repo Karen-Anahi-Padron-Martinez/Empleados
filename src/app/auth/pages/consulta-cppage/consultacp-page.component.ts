@@ -11,12 +11,13 @@ export class ConsultacpPageComponent implements OnInit{
   empleadosConCursos: any[] = []; // Lista de empleados con sus cursos
   empleadosConParticipaciones: any[] = []; // Lista de empleados con sus participaciones
   selectedOption: string = 'curso'; // Opción por defecto: 'curso'
-  
+
   constructor(private cursosService: CursosService, private participacionesService: ParticipacionesService) { }
 
   ngOnInit() {
     this.cargarCursosDeEmpleados();
     this.cargarParticipacionesDeEmpleados();
+    
   }
 
   // Método para cargar los cursos de los empleados

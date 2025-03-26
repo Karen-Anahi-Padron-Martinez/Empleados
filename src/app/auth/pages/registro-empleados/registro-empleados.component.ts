@@ -162,18 +162,18 @@ export class RegistroEmpleadoComponent implements OnInit {
     // Actualizar el campo correos en el FormGroup
     this.empleadoForm.patchValue({ correos: correosValidos });
 
-    console.log('📨 Correos a guardar:', this.empleadoForm.value.correos);
-    console.log('📦 Datos a enviar:', this.empleadoForm.value);
+    console.log(' Correos a guardar:', this.empleadoForm.value.correos);
+    console.log(' Datos a enviar:', this.empleadoForm.value);
 
     if (this.empleadoForm.valid && correosValidos.length > 0) {
       this.empleadoService.registrarEmpleado(this.empleadoForm.value).subscribe(
         response => {
-          console.log('✅ Empleado registrado:', response);
+          console.log(' Empleado registrado:', response);
           alert("Empleado registrado con éxito");
           this.router.navigate(['/auth/ver-empleado']); // o ajusta la ruta si es diferente
         },
         error => {
-          console.error('❌ Error al registrar empleado:', error);
+          console.error(' Error al registrar empleado:', error);
           alert("Error al registrar el empleado");
         }
       );
